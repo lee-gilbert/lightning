@@ -9,15 +9,18 @@ import com.leeGilbert.ltk.repository.TopicProposalRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import sun.jvm.hotspot.utilities.Assert;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.notNullValue;
 
 
 @RunWith(SpringRunner.class)
@@ -39,7 +42,7 @@ public class LightningtalksApplicationJPATests {
 	}
 
 	@Test
-	public void crudTopicProposal() {
+	public void crudTopicProposal() {////FIXME include all crud ops & use tx boundaries between save & retrieve
 		submissionRepository.deleteAll();
 		List<TopicProposal> data = new ArrayList<>();
 		for (int i = 0; i < 10; i++) {
@@ -48,14 +51,15 @@ public class LightningtalksApplicationJPATests {
 		}
 
 		topicProposalRepository.saveAll(data);
-
+		topicProposalRepository.flush();
 		List<TopicProposal> saved = topicProposalRepository.findAll();
-		saved.forEach(b -> log.info(b.toString()));  //FIXME add asserts
+		Assert.assertThat("# of TopicProposals found " , saved.size(), is(10));
+		saved.forEach(b -> log.info(b.toString()));
 	}
 
 
 	@Test
-	public void crudSubmission() {
+	public void crudSubmission() { //FIXME include all crud ops & use tx boundaries between save & retrieve
 		submissionRepository.deleteAll();
 		LocalDate targetLightningTalkDate = LocalDate.now();
 		List<Submission> data = new ArrayList<>();
@@ -64,37 +68,51 @@ public class LightningtalksApplicationJPATests {
 			data.add(item);
 		}
 		submissionRepository.saveAll(data);
-
+		topicProposalRepository.flush();
 		List<Submission> saved = submissionRepository.findAll();
-		saved.forEach(b -> log.info(b.toString())); //FIXME add asserts
+		Assert.assertThat("# of Submissions found " , saved.size(), is(10));
+		saved.forEach(b -> log.info(b.toString()));
 	}
 
 
 	@Test
-	public void crudScheduledSession() {
+	public void crudScheduledSession() {//FIXME include all crud ops & use tx boundaries between save & retrieve
 		submissionRepository.deleteAll();
 		topicProposalRepository.deleteAll();
 		LocalDate targetLightningTalkDate = LocalDate.now();
+
+		create3Submissions(targetLightningTalkDate);
+
+		final List<Submission> savedSubmissions = submissionRepository.findAll();
+		Assert.assertThat("# of submissions found " , savedSubmissions.size(), is(3));
+
+		ScheduledSession newScheduledSession = new ScheduledSession(targetLightningTalkDate, "email");
+		scheduledSessionRepository.saveAndFlush(newScheduledSession);
+		ScheduledSession savedScheduledSession = scheduledSessionRepository.findAll().get(0);
+		Assert.assertThat(" savedScheduledSession found " , savedScheduledSession, notNullValue());
+
+		savedScheduledSession.setSubmissions(savedSubmissions);
+		savedSubmissions.forEach(s->submissionRepository.saveAndFlush(s)); // needed
+		//scheduledSessionRepository.saveAndFlush(savedScheduledSession); // not needed
+
+		ScheduledSession savedScheduledSession2 = scheduledSessionRepository.findById(savedScheduledSession.getId()).get();
+		Assert.assertThat("# of submissions attached to ScheduledSession" , savedScheduledSession2.getSubmissions().size(), is(3));
+		log.info(savedScheduledSession2.toString());
+		savedScheduledSession2.getSubmissions().forEach(s->log.info("> " + s.toString()));
+
+		List<Submission> updatedSubmissions = submissionRepository.findAll();
+		updatedSubmissions.forEach(x -> Assert.assertThat(x.getScheduledSession(), notNullValue()));
+		updatedSubmissions.forEach(b -> log.info(b.toString()));
+	}
+
+	private void create3Submissions(LocalDate targetLightningTalkDate) {
 		List<Submission> data = new ArrayList<>();
 		for (int i = 0; i < 3; i++) {
 			Submission item = new Submission("topic" + i, "description","email", targetLightningTalkDate, LocalDateTime.now());
 			data.add(item);
 		}
 		submissionRepository.saveAll(data);
-		List<Submission> submissions = submissionRepository.findAll();
-		Assert.that(submissions.size()==3, "3 submissions should be found but was " + submissions.size());
-
-		ScheduledSession scheduledSession = new ScheduledSession(targetLightningTalkDate, "email");
-
-		List<ScheduledSession> schedules = new ArrayList<>();
-		schedules.add(scheduledSession);
-		scheduledSessionRepository.saveAll(schedules);
-
-		// fetch all
-		List<ScheduledSession> saved = scheduledSessionRepository.findAll();
-		Assert.that(saved.size()==1, "1 ScheduledSession should be found but was " + submissions.size());
-
-		saved.forEach(b -> log.info(b.toString())); //FIXME add asserts
+		submissionRepository.flush();
 	}
 
 

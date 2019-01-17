@@ -4,7 +4,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity(name = "submission")
 @Data
@@ -43,13 +46,14 @@ public class Submission implements Serializable {
     @Column(nullable = true)
     private Boolean approved;
 
-    @ManyToOne(optional = true)
+    @ManyToOne(optional = true, fetch = FetchType.EAGER)
     @JoinColumn(name="scheduledSession", referencedColumnName="id")
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
+    @JsonIgnore
     private ScheduledSession scheduledSession;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
-
 
 }

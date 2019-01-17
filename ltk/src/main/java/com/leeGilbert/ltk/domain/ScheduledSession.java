@@ -5,6 +5,9 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity(name = "scheduledSession")
 @Data
@@ -27,6 +30,13 @@ public class ScheduledSession {
     private String contactEmail;
 
     @OneToMany(mappedBy="scheduledSession", targetEntity=Submission.class, fetch= FetchType.EAGER)
-    private Collection submissions;
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Set<Submission> submissions = new HashSet<>();
 
+    public void setSubmissions(final List<Submission> submissionsIn) {
+        submissionsIn.forEach(sub -> {sub.setScheduledSession(this); sub.setApproved(true);});
+        submissions.clear();
+        submissions.addAll(submissionsIn);
+    }
 }
