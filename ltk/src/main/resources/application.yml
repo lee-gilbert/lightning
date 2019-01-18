@@ -1,0 +1,25 @@
+logging:
+    level:
+        org:
+            hibernate:
+                SQL: debug
+management:
+    security:
+        enabled: false
+spring:
+    datasource:
+        name: testData
+    h2:
+        console:
+            enabled: true
+    jmx:
+        default-domain: jpa.sample
+    jpa:
+        hibernate:
+            ddl-auto: none
+    liquibase:
+        change-log: classpath:/db/changelog/db.changelog-master.xml
+        enabled: true
+        password: ''
+        url: jdbc:h2:mem:testData
+        user: sa

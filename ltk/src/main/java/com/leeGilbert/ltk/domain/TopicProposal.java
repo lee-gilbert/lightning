@@ -1,11 +1,11 @@
 package com.leeGilbert.ltk.domain;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -13,6 +13,7 @@ import java.io.Serializable;
  */
 @Entity(name = "topicProposal")
 @ToString
+@Builder
 public class TopicProposal implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -22,18 +23,25 @@ public class TopicProposal implements Serializable {
     private Long id;
 
     @Column(nullable = false, unique = true)
+    @Size(min=3, max=80)
+    @NotNull
     private String topic;
 
     @Column(nullable = false)
+    @NotNull
+    @Size(min=3, max=120)
     private String description;
 
     @Column(nullable = false)
+    @NotNull
+    @Size(min=3, max=255)
     private String email;
 
     @Column(nullable = false)
     private Boolean submitted ;
 
     @Column(nullable = true)
+    @JsonIgnore
     private Boolean deleted ;
 
     protected TopicProposal() {}

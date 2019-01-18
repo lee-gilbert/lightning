@@ -3,6 +3,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
@@ -25,14 +26,17 @@ public class Submission implements Serializable {
 
     @Column(nullable = false, unique = true)
     @NonNull
+    @Size(min=3, max=80)
     private String topic;
 
     @Column(nullable = false)
     @NonNull
+    @Size(min=3, max=120)
     private String description;
 
     @Column(nullable = false)
     @NonNull
+    @Size(min=3, max=255)
     private String email;
 
     @Column(nullable = false)
