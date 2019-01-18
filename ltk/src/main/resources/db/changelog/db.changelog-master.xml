@@ -16,12 +16,12 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="topic" type="varchar(80)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true"/>
             </column>
             <column name="description" type="varchar(120)">
                 <constraints nullable="false"/>
             </column>
-            <column name="email" type="varchar(50)">
+            <column name="email" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
             <column name="submitted" type="boolean">
@@ -49,12 +49,12 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="topic" type="varchar(80)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true"/>
             </column>
             <column name="description" type="varchar(120)">
                 <constraints nullable="false"/>
             </column>
-            <column name="email" type="varchar(50)">
+            <column name="email" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
             <column name="TARGET_LIGHTNING_TALK_DATE"  type="timestamp">
