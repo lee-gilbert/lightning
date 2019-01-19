@@ -3,8 +3,9 @@ package com.leeGilbert.ltk.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.ConstraintViolationException;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -32,6 +33,7 @@ public class ScheduledSession {
     @OneToMany(mappedBy="scheduledSession", targetEntity=Submission.class, fetch= FetchType.EAGER)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
+    @Size(max=3)  //TODO make max size externally configurable?
     private Set<Submission> submissions = new HashSet<>();
 
     public void setSubmissions(final List<Submission> submissionsIn) {

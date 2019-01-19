@@ -6,6 +6,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import java.util.Optional;
+
 public interface SubmissionRepository extends JpaRepository<Submission, Long> {
 
     Page<Submission> findAll(Pageable pageable);
@@ -14,5 +16,6 @@ public interface SubmissionRepository extends JpaRepository<Submission, Long> {
 
     Submission findByTopicAllIgnoringCase(String topic);
 
+    Optional<Submission> findByTopicIgnoringCase(String topic);
 
 }

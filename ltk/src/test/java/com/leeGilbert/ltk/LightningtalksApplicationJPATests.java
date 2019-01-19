@@ -19,6 +19,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.function.Function;
+
+import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.joining;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
 
@@ -37,13 +42,19 @@ public class LightningtalksApplicationJPATests {
 	@Autowired
 	public ScheduledSessionRepository scheduledSessionRepository;
 
+
+//	private static final Function<Long, String> repeaterX = (cnt) -> Stream.generate(() -> "X").limit((long)cnt).collect(joining());
+//	private String s81 = repeaterX.apply(81L);
+//	private String s121 = repeaterX.apply(121L);
+//	private String s256 = repeaterX.apply(256L);
+
 	@Test
 	public void contextLoads() {
 	}
 
 	@Test
-	public void crudTopicProposal() {////FIXME include all crud ops & use tx boundaries between save & retrieve
-		submissionRepository.deleteAll();
+	public void crudTopicProposal() {////TODO include all crud ops & use tx boundaries between save & retrieve
+		topicProposalRepository.deleteAll();
 		List<TopicProposal> data = new ArrayList<>();
 		for (int i = 0; i < 10; i++) {
 			TopicProposal item = new TopicProposal(null,"topic" + i, "description","email", false, false);
@@ -59,7 +70,7 @@ public class LightningtalksApplicationJPATests {
 
 
 	@Test
-	public void crudSubmission() { //FIXME include all crud ops & use tx boundaries between save & retrieve
+	public void crudSubmission() { //TODO include all crud ops & use tx boundaries between save & retrieve
 		submissionRepository.deleteAll();
 		LocalDate targetLightningTalkDate = LocalDate.now();
 		List<Submission> data = new ArrayList<>();
@@ -76,7 +87,7 @@ public class LightningtalksApplicationJPATests {
 
 
 	@Test
-	public void crudScheduledSession() {//FIXME include all crud ops & use tx boundaries between save & retrieve
+	public void crudScheduledSession() {//TODO include all crud ops & use tx boundaries between save & retrieve
 		submissionRepository.deleteAll();
 		topicProposalRepository.deleteAll();
 		LocalDate targetLightningTalkDate = LocalDate.now();
@@ -114,7 +125,6 @@ public class LightningtalksApplicationJPATests {
 		submissionRepository.saveAll(data);
 		submissionRepository.flush();
 	}
-
 
 }
 

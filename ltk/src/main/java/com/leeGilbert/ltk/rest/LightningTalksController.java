@@ -5,13 +5,17 @@ import com.leeGilbert.ltk.service.LightningTalksService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import javax.ws.rs.core.Context;
+
 import java.net.URISyntaxException;
 import java.util.List;
 
@@ -20,6 +24,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "*")
 @Slf4j
 public class LightningTalksController {
 
@@ -30,65 +35,80 @@ public class LightningTalksController {
     /**
      * GET  /proposal -> Retrieves TopicProposal list.
      */
-    @GetMapping(value = "/proposal", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/proposal")
     @Transactional(readOnly = true)
-    @CrossOrigin(origins = "*")
-    public List<TopicProposal> findAllTopicProposal() {
+    public ApiResponse<List<TopicProposal>> findAllTopicProposal() {
         log.debug("REST-GET request to retrieve TopicProposal ");
-        return lightningTalksService.findAllTopicProposal();
+        return new ApiResponse<List<TopicProposal>>(HttpStatus.OK.value(), "success", lightningTalksService.findAllTopicProposal());
     }
 
     /**
      * GET  /proposal/{id} -> Retrieves a TopicProposal.
      */
-    @GetMapping(value = "/proposal/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/proposal/{id}")
     @Transactional(readOnly = true)
-    @CrossOrigin(origins = "*")
-    public ResponseEntity<TopicProposal> findTopicProposalById(@PathVariable Long id) {
+    public ApiResponse<TopicProposal> findTopicProposalById(@PathVariable Long id) {
         log.debug("REST-GET request to retrieve TopicProposal id: {}", id);
         return lightningTalksService.findTopicProposalById(id)
-                .map(found -> new ResponseEntity<>(found, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                .map(found -> new ApiResponse<TopicProposal>(HttpStatus.OK.value(), "TopicProposal fetched successfully", found))
+                .orElse(new ApiResponse<>(HttpStatus.NOT_FOUND.value(), "TopicProposal fetch failed", null));
     }
 
     /**
-     * POST  /proposal -> Create a new TopicProposal.
+     * POST  /proposal -> Add/Create a new TopicProposal.
      */
-    @PostMapping(value = "/proposal", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin(origins = "*")
-    public ResponseEntity<Void> create(@RequestBody TopicProposal tp) throws URISyntaxException {
+    @PostMapping(value = "/proposal")
+    public ApiResponse<TopicProposal> create(@RequestBody TopicProposal tp, @Context HttpServletResponse resp) throws URISyntaxException {
         log.debug("REST-POST request to save new TopicProposal : {}", tp);
-        if (tp.getId() != null) {
-            return ResponseEntity.badRequest().header("Failure", "New object cannot already have an id.").build();
+        if (tp.getId() != null) {//TODO refactor into util
+            resp.setHeader("Failure", "New object cannot already have an id.");
+            resp.setStatus(HttpStatus.BAD_REQUEST.value());
+            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), "New object cannot already have an id.", null);
         }
-        tp = lightningTalksService.updateTopicProposal(tp);
-        return ResponseEntity.created(new URI("/api/proposal/" + tp.getId())).build();
+        if (tp.getSubmitted() == null) {
+            tp.setSubmitted(false);
+        }
+        try {
+            tp = lightningTalksService.updateTopicProposal(tp);
+        } catch (ConstraintViolationException e) { //TODO refactor into util
+            ConstraintViolation<?> next = e.getConstraintViolations().iterator().next();
+            String message = next.getMessage();
+            String propertyName = next.getPropertyPath().toString();
+            resp.setHeader("Failure", propertyName + " " + message);
+            resp.setStatus(HttpStatus.BAD_REQUEST.value());
+            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), propertyName + " " + message, null);
+        } catch  (DataAccessException dae){
+            String message = dae.getMessage();
+            resp.setHeader("Failure",  message);
+            resp.setStatus(HttpStatus.BAD_REQUEST.value());
+            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(),  message, null);
+        }
+        resp.setStatus(HttpStatus.CREATED.value());
+        return new ApiResponse<>(HttpStatus.CREATED.value(), "TopicProposal created", tp);
     }
 
     /**
-     * PUT  /proposal/{id} -> Updates an existing TopicProposal.
+     * PUT  /proposal/{id} -> Update an existing TopicProposal.
      */
-    @PutMapping(value = "/proposal/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin(origins = "*")
-     public ResponseEntity<TopicProposal> updateTopicProposal(@PathVariable("id") long id, @RequestBody TopicProposal proposalIn)  {
+    @PutMapping(value = "/proposal/{id}")
+     public ApiResponse<TopicProposal> updateTopicProposal(@PathVariable("id") long id, @RequestBody TopicProposal proposalIn)  {
         log.debug("REST-PUT request to update TopicProposal : {}", proposalIn);
         return lightningTalksService.findTopicProposalById(id)
                 .map(foundForUpdate -> {
                     BeanUtils.copyProperties(proposalIn, foundForUpdate);
                     TopicProposal updated = lightningTalksService.updateTopicProposal(foundForUpdate);
-                    return new ResponseEntity<>(updated, HttpStatus.OK);
+                    return new ApiResponse<TopicProposal>(HttpStatus.OK.value(), "TopicProposal fetched successfully", updated);
                 })
-                .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
+                .orElse(new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "TopicProposal update failed", null));
     }
 
     /**
      * DELETE  /proposal/:id -> delete TopicProposal by "id".
      */
-    @RequestMapping(value = "/proposal/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin(origins = "*")
-    public ResponseEntity<Void>  deleteTopicProposal(@PathVariable Long id) {
+    @DeleteMapping(value = "/proposal/{id}")
+    public ApiResponse<Void>  deleteTopicProposal(@PathVariable Long id) {
         log.debug("REST request to delete Things : {}", id);
         lightningTalksService.deleteTopicProposalById(id);
-        return ResponseEntity.ok().build();
+        return new ApiResponse<>(HttpStatus.OK.value(), "User fetched successfully.", null);
     }
 }
