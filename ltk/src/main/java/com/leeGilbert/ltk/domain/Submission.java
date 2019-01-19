@@ -45,7 +45,7 @@ public class Submission implements Serializable {
 
     @Column(nullable = true)
     @NonNull
-    private LocalDateTime submitted;
+    private LocalDateTime created;
 
     @Column(nullable = true)
     private Boolean approved;

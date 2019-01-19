@@ -72,9 +72,28 @@ public class LightningTalksService {
         return this.submissionRepository.findByTopicIgnoringCase(topic);
     }
 
-    public Submission updateSubmission(Submission tp) {
-        Assert.notNull(tp, "Submission must not be null");
-        return this.submissionRepository.saveAndFlush(tp);
+    /**
+     * Creates a Submission & sets proposal status to submitted, if proposal exists.
+     * @param submission
+     * @param proposalId
+     * @return
+     */
+    public Submission createSubmission(Submission submission, Long  proposalId) {
+        Assert.notNull(submission, "Submission must not be null");
+        Assert.isNull(submission.getId(), "Submission id should not be pre-assigned");
+        if (proposalId != null) {
+            Optional<TopicProposal> topicProposalOption = this.findTopicProposalById(proposalId);
+            topicProposalOption.ifPresent(tp -> {
+            tp.setSubmitted(true);
+            topicProposalRepository.save(tp);
+            });
+        }
+       return this.submissionRepository.saveAndFlush(submission);
+    }
+
+    public Submission updateSubmission(Submission submission) {
+        Assert.notNull(submission, "Submission must not be null");
+        return this.submissionRepository.saveAndFlush(submission);
     }
 
     public void deleteSubmissionlById(Long id) {

@@ -122,15 +122,11 @@ public class LightningTalksController {
 
     /**
      * POST  /submission -> Add/Create a new Submission.
+     * If a submission.id is supplied then this is used to update submitted status of a Proposal with that id.
      */
     @PostMapping(value = "/submission")
     public ApiResponse<Submission> create(@RequestBody Submission submission, @Context HttpServletResponse resp) throws URISyntaxException {
         log.debug("REST-POST request to save new Submission : {}", submission);
-        if (submission.getId() != null) {//TODO refactor into util
-            resp.setHeader("Failure", "New object cannot already have an id.");
-            resp.setStatus(HttpStatus.BAD_REQUEST.value());
-            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), "New object cannot already have an id.", null);
-        }
         // default some values
         if (submission.getApproved() == null) {
             submission.setApproved(false);
@@ -138,19 +134,23 @@ public class LightningTalksController {
         if (submission.getTargetLightningTalkDate() == null) {
             submission.setTargetLightningTalkDate(TalkDateStreamUtil.nextTalkDate());
         }
-        //save
-        submission.setSubmitted(LocalDateTime.now());
+
+        submission.setCreated(LocalDateTime.now());
         try {
-            submission = lightningTalksService.updateSubmission(submission);
+            Long proposalId = submission.getId();
+            submission.setId(null); // remove proposalId
+            submission = lightningTalksService.createSubmission(submission, proposalId);
         } catch (ConstraintViolationException e) { //TODO refactor into common util
             ConstraintViolation<?> next = e.getConstraintViolations().iterator().next();
             String message = next.getMessage();
             String propertyName = next.getPropertyPath().toString();
+            log.error(propertyName + " " + message);
             resp.setHeader("Failure", propertyName + " " + message);
             resp.setStatus(HttpStatus.BAD_REQUEST.value());
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), propertyName + " " + message, null);
         } catch  (DataAccessException dae){
             String message = dae.getMessage();
+            log.error(message);
             resp.setHeader("Failure",  message);
             resp.setStatus(HttpStatus.BAD_REQUEST.value());
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(),  message, null);

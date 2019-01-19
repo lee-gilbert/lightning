@@ -60,7 +60,7 @@
             <column name="TARGET_LIGHTNING_TALK_DATE"  type="timestamp">
                 <constraints nullable="false"/>
             </column>
-            <column name="submitted" type="timestamp">
+            <column name="created" type="timestamp">
                 <constraints nullable="false"/>
             </column>
             <column name="approved" type="boolean">

@@ -42,7 +42,11 @@ export class ProposalListComponent implements OnInit {
     this.router.navigate(['proposal-add']);
   };
 
-  submitProposal(): void {
-    this.router.navigate(['proposal-list']);
+  submitProposal(proposal: Proposal): void {
+    this.apiService.submitProposal(proposal)
+    .subscribe( data => {
+      console.log(data);
+    });
+    //this.router.navigate(['proposal-list']);
   };
 }
