@@ -1,0 +1,31 @@
+server:
+  port: 8080
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
+management:
+  security:
+    enabled: false
+spring:
+  profiles:
+    active: dev
+  datasource:
+    name: testData
+  h2:
+    console:
+      enabled: true
+  jmx:
+    default-domain: jpa.sample
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+      naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.xml
+    enabled: true
+    password: ''
+    url: jdbc:h2:mem:testData
+    user: sa

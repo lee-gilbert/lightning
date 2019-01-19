@@ -1,0 +1,21 @@
+server:
+  port: 80
+spring:
+  profiles:
+    active: prod
+  datasource:
+    dataSourceClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/testData
+    username: postgres
+    password: postgres
+    liquibase:
+      change-log: classpath:/db/changelog/db.changelog-master.xml
+      enabled: true
+      password: postgres
+      url: jdbc:postgresql://localhost:5432/testData
+      user: postgres
+    jpa:
+      show-sql: true
+      hibernate:
+        ddl-auto: none
+        naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
