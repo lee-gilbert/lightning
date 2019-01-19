@@ -1,5 +1,5 @@
-<div class="col-md-6 user-container">
-  <h2 style="margin: auto"> Proposal Details</h2>
+<div class="col-md-6 proposal-container">
+  <h2 style="margin: auto"> Lightning Talk Proposals</h2>
   <button class="btn btn-danger" style="width:100px" (click)="addProposal()"> Add Topic Proposal</button>
   <table class="table table-striped">
     <thead>
@@ -13,11 +13,11 @@
     </thead>
     <tbody>
     <tr *ngFor="let proposal of proposals">
-      <td class="hidden">{{user.id}}</td>
-      <td>{{user.topic}}</td>
-      <td>{{user.description}}</td>
-      <td>{{user.email}}</td>
-      <td>{{user.submitted}}</td>
+      <td class="hidden">{{proposal.id}}</td>
+      <td>{{proposal.topic}}</td>
+      <td>{{proposal.description}}</td>
+      <td>{{proposal.email}}</td>
+      <td>{{proposal.submitted}}</td>
       <td><button class="btn btn-success" (click)="deleteProposal(proposal)"> Delete</button>
         <button class="btn btn-success" (click)="editProposal(proposal)" style="margin-left: 20px;"> Edit</button>
         <button class="btn btn-success" (click)="submitProposal(proposal)" style="margin-left: 20px;"> Submit</button>
