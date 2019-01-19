@@ -1,7 +1,9 @@
 package com.leeGilbert.ltk.rest;
 
+import com.leeGilbert.ltk.domain.Submission;
 import com.leeGilbert.ltk.domain.TopicProposal;
 import com.leeGilbert.ltk.service.LightningTalksService;
+import com.leeGilbert.ltk.util.TalkDateStreamUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ import javax.validation.ConstraintViolationException;
 import javax.ws.rs.core.Context;
 
 import java.net.URISyntaxException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -111,4 +115,48 @@ public class LightningTalksController {
         lightningTalksService.deleteTopicProposalById(id);
         return new ApiResponse<>(HttpStatus.OK.value(), "User fetched successfully.", null);
     }
+
+
+    //** Submission *************************************************************************************************
+
+
+    /**
+     * POST  /submission -> Add/Create a new Submission.
+     */
+    @PostMapping(value = "/submission")
+    public ApiResponse<Submission> create(@RequestBody Submission submission, @Context HttpServletResponse resp) throws URISyntaxException {
+        log.debug("REST-POST request to save new Submission : {}", submission);
+        if (submission.getId() != null) {//TODO refactor into util
+            resp.setHeader("Failure", "New object cannot already have an id.");
+            resp.setStatus(HttpStatus.BAD_REQUEST.value());
+            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), "New object cannot already have an id.", null);
+        }
+        // default some values
+        if (submission.getApproved() == null) {
+            submission.setApproved(false);
+        }
+        if (submission.getTargetLightningTalkDate() == null) {
+            submission.setTargetLightningTalkDate(TalkDateStreamUtil.nextTalkDate());
+        }
+        //save
+        submission.setSubmitted(LocalDateTime.now());
+        try {
+            submission = lightningTalksService.updateSubmission(submission);
+        } catch (ConstraintViolationException e) { //TODO refactor into common util
+            ConstraintViolation<?> next = e.getConstraintViolations().iterator().next();
+            String message = next.getMessage();
+            String propertyName = next.getPropertyPath().toString();
+            resp.setHeader("Failure", propertyName + " " + message);
+            resp.setStatus(HttpStatus.BAD_REQUEST.value());
+            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(), propertyName + " " + message, null);
+        } catch  (DataAccessException dae){
+            String message = dae.getMessage();
+            resp.setHeader("Failure",  message);
+            resp.setStatus(HttpStatus.BAD_REQUEST.value());
+            return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(),  message, null);
+        }
+        resp.setStatus(HttpStatus.CREATED.value());
+        return new ApiResponse<>(HttpStatus.CREATED.value(), "TopicProposal created", submission);
+    }
+
 }
