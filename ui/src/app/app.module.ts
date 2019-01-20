@@ -10,6 +10,7 @@ import {HttpClientModule} from "@angular/common/http";
 import { ProposalListComponent } from './proposal-list/proposal-list.component';
 import { ProposalEditComponent } from './proposal-edit/proposal-edit.component';
 import { ProposalAddComponent } from './proposal-add/proposal-add.component';
+import { SubmissionListComponent } from './submission-list/submission-list.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ProposalAddComponent } from './proposal-add/proposal-add.component';
     AppComponent,
     ProposalListComponent,
     ProposalEditComponent,
-    ProposalAddComponent
+    ProposalAddComponent,
+    SubmissionListComponent
   ],
   imports: [
     BrowserModule,
