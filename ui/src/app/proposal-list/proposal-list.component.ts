@@ -1,10 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import {Router} from "@angular/router";
-import {Proposal} from "../model/proposal.model";
-import {BackendApiService} from "../services/backend-api.service";
+import {Router} from '@angular/router';
+import {Proposal} from '../model/proposal.model';
+import {BackendApiService} from '../services/backend-api.service';
 
 @Component({
-  selector: 'proposal-list',
+  selector: 'ltk-proposal-list',
   templateUrl: './proposal-list.component.html',
   styleUrls: ['./proposal-list.component.scss']
 })
@@ -29,24 +29,24 @@ export class ProposalListComponent implements OnInit {
     this.apiService.deleteProposal(proposal.id)
       .subscribe( data => {
         this.proposals = this.proposals.filter(p => p !== proposal);
-      })
-  };
+      });
+  }
 
   editProposal(proposal: Proposal): void {
-    window.localStorage.removeItem("editProposalId");
-    window.localStorage.setItem("editProposalId", proposal.id.toString());
+    window.localStorage.removeItem('editProposalId');
+    window.localStorage.setItem('editProposalId', proposal.id.toString());
     this.router.navigate(['proposal-edit']);
-  };
+  }
 
   addProposal(): void {
     this.router.navigate(['proposal-add']);
-  };
+  }
 
   submitProposal(proposal: Proposal): void {
     this.apiService.submitProposal(proposal)
     .subscribe( data => {
       console.log(data);
     });
-    //this.router.navigate(['proposal-list']);
-  };
+  }
+
 }

@@ -133,7 +133,7 @@ public class LightningTalksController {
      * If a submission.id is supplied then this is used to update submitted status of a Proposal with that id.
      */
     @PostMapping(value = "/submission")
-    public ApiResponse<Submission> create(@RequestBody Submission submission, @Context HttpServletResponse resp) throws URISyntaxException {
+    public ApiResponse<Submission> createSubmission(@RequestBody Submission submission, @Context HttpServletResponse resp) {
         log.debug("REST-POST request to save new Submission : {}", submission);
         // default some values
         if (submission.getApproved() == null) {
@@ -167,4 +167,20 @@ public class LightningTalksController {
         return new ApiResponse<>(HttpStatus.CREATED.value(), "TopicProposal created", submission);
     }
 
+    /**
+     * PUT  /submission/{id} -> Update an existing Submission.
+     * Allows only updates to the 'Submission.approved' field.
+     */
+    @PutMapping(value = "/submission/{id}")
+    public ApiResponse<Submission> updateSubmission(@PathVariable Long id, @RequestBody Submission submissionIn, @Context HttpServletResponse resp) {
+        log.debug("REST-PUT request to update existing Submission : {}", submissionIn);
+        return lightningTalksService.findSubmissionById(id)
+                .map(foundForUpdate -> {
+                    //BeanUtils.copyProperties(submissionIn, foundForUpdate);
+                    foundForUpdate.setApproved(submissionIn.getApproved());
+                    Submission updated = lightningTalksService.updateSubmission(foundForUpdate);
+                    return new ApiResponse<Submission>(HttpStatus.OK.value(), "Submission fetched successfully", updated);
+                })
+                .orElse(new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Submission update failed", null));
+    }
 }

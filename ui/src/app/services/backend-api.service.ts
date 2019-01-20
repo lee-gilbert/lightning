@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Proposal} from "../model/proposal.model";
-import {Submission} from "../model/submission.model";
-import {ApiResponse} from "../model/api.response";
-import {Observable} from "rxjs/index";
+import {Proposal} from '../model/proposal.model';
+import {Submission} from '../model/submission.model';
+import {ApiResponse} from '../model/api.response';
+import {Observable} from 'rxjs/index';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +11,10 @@ import {Observable} from "rxjs/index";
 export class BackendApiService {
 
   constructor(private http: HttpClient) { }
-  proposalURL: string = 'http://localhost:8080/api/proposal/'; //TODO make config constants
-  submissionlURL: string = 'http://localhost:8080/api/submission/';
+  proposalURL = 'http://localhost:8080/api/proposal/'; // TODO make config constants
+  submissionlURL = 'http://localhost:8080/api/submission/';
 
-  getProposals() : Observable<ApiResponse> {
+  getProposals(): Observable<ApiResponse> {
     return this.http.get<ApiResponse>(this.proposalURL);
   }
 
@@ -31,17 +31,30 @@ export class BackendApiService {
   }
 
   submitProposal(proposal: Proposal): Observable<ApiResponse> {
-    proposal.submitted = true; 
-    const submission = new Submission
-    submission.id = proposal.id
-    submission.topic = proposal.topic
-    submission.description = proposal.description
-    submission.email = proposal.email
-    submission.approved = false
-    return this.http.post<ApiResponse>(this.submissionlURL, submission); //create Submission
+    proposal.submitted = true;
+    const submission = new Submission;
+    submission.id = proposal.id;
+    submission.topic = proposal.topic;
+    submission.description = proposal.description;
+    submission.email = proposal.email;
+    submission.approved = false;
+    return this.http.post<ApiResponse>(this.submissionlURL, submission); // create Submission
   }
 
   deleteProposal(id: number): Observable<ApiResponse> {
     return this.http.delete<ApiResponse>(this.proposalURL + id);
   }
+
+
+  /** Submissions */
+
+  updateSubmission(submission: Submission): Observable<ApiResponse> {
+    return this.http.put<ApiResponse>(this.submissionlURL + submission.id, submission); // update Submission
+  }
+
+  getSubmissions(): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(this.submissionlURL);
+  }
+
+
 }

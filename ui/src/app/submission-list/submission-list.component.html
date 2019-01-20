@@ -1,3 +1,30 @@
-<p>
-  submission-list works!
-</p>
+<div class="col-md-6 submission-container">
+  <h2 style="margin: auto"> Lightning Talk Submissions</h2>
+   <table class="table table-striped">
+    <thead>
+    <tr>
+      <th class="hidden">id</th>
+      <th>topic</th>
+      <th>description</th>
+      <th>email</th>
+      <th>created</th>
+      <th>targetTalk</th>
+      <th>approved</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let submission of submissions">
+      <td class="hidden">{{submission.id}}</td>
+      <td>{{submission.topic}}</td>
+      <td>{{submission.description}}</td>
+      <td>{{submission.email}}</td>
+      <td>{{submission.created}}</td>
+      <td>{{submission.targetLightningTalkDate}}</td>
+      <td>{{submission.approved}}</td>
+      <td>
+        <button class="btn btn-danger" style="width:100px" (click)="approveSubmission(submission)"> Approve</button>
+      </td>
+     </tr>
+    </tbody>
+  </table>
+</div>

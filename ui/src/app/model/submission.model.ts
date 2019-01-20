@@ -7,4 +7,3 @@ export class Submission {
     public created: string;
     public approved: boolean;
   }
- 

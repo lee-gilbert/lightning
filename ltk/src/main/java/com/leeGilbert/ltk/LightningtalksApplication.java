@@ -32,7 +32,7 @@ public class LightningtalksApplication {
 			lts.updateTopicProposal(tp);
 
 			Submission sess = new Submission(
-					"yay",
+					"yay2",
 					"desc",
 					"a@b.com", TalkDateStreamUtil.nextTalkDate(), LocalDateTime.now());
 			lts.updateSubmission(sess);

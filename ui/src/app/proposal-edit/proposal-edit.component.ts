@@ -1,13 +1,13 @@
 import { Component, OnInit , Inject} from '@angular/core';
-import {Router} from "@angular/router";
-import {Proposal} from "../model/proposal.model";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {first} from "rxjs/operators";
-import {BackendApiService} from "../services/backend-api.service";
+import {Router} from '@angular/router';
+import {Proposal} from '../model/proposal.model';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {first} from 'rxjs/operators';
+import {BackendApiService} from '../services/backend-api.service';
 import { debug } from 'util';
 
 @Component({
-  selector: 'proposal-edit',
+  selector: 'ltk--proposal-edit',
   templateUrl: './proposal-edit.component.html',
   styleUrls: ['./proposal-edit.component.scss']
 })
@@ -16,12 +16,12 @@ export class ProposalEditComponent implements OnInit {
 
   proposal: Proposal;
   editForm: FormGroup;
-  constructor(private formBuilder: FormBuilder,private router: Router, private apiService: BackendApiService) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private apiService: BackendApiService) { }
 
   ngOnInit() {
-    let proposalId = window.localStorage.getItem("editProposalId");
-    if(!proposalId) {
-      alert("Invalid edit action.")
+    const proposalId = window.localStorage.getItem('editProposalId');
+    if (!proposalId) {
+      alert('Invalid edit action.');
       this.router.navigate(['proposal-list']);
       return;
     }
@@ -43,7 +43,7 @@ export class ProposalEditComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          if(data.status === 200) {
+          if (data.status === 200) {
             alert('Proposal updated successfully.');
             this.router.navigate(['proposal-list']);
           } else {

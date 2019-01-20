@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import {Router} from '@angular/router';
+import {Submission} from '../model/submission.model';
+import {BackendApiService} from '../services/backend-api.service';
 
 @Component({
   selector: 'ltk-submission-list',
@@ -7,9 +10,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SubmissionListComponent implements OnInit {
 
-  constructor() { }
+  submissions: Submission[];
+
+  constructor(private router: Router, private apiService: BackendApiService) { }
 
   ngOnInit() {
+//    if(!window.localStorage.getItem('token')) {
+//      this.router.navigate(['login']);
+//      return;
+//    }
+    this.apiService.getSubmissions()
+      .subscribe( data => {
+          this.submissions = data.result;
+      });
   }
 
+  approveSubmission(submission: Submission): void {
+    this.apiService.updateSubmission(submission)
+    .subscribe( data => {
+      console.log(data);
+    });
+  }
 }

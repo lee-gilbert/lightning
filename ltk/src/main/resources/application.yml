@@ -12,6 +12,11 @@ management:
     security:
         enabled: false
         roles: ACTUATOR,ADMIN
+    endpoints:
+        web:
+            cors:
+                allowed-origins=: http://localhost:4200,http://localhost:8080
+                allowed-methods: POST, GET, PUT, OPTIONS, DELETE
 security:
     basic:
         enabled: false
