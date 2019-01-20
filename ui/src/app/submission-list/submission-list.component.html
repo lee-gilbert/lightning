@@ -18,11 +18,13 @@
       <td>{{submission.topic}}</td>
       <td>{{submission.description}}</td>
       <td>{{submission.email}}</td>
-      <td>{{submission.created}}</td>
-      <td>{{submission.targetLightningTalkDate}}</td>
+      <td>{{submission.created | date:'EEEE MMM d, y, h:mm a'}}</td>
+      <td>{{submission.targetLightningTalkDate | date:'EEEE MMM d, y'}}</td>
       <td>{{submission.approved}}</td>
-      <td>
-        <button class="btn btn-danger" style="width:100px" (click)="approveSubmission(submission)"> Approve</button>
+      <td> <mat-icon ng-if="$submission?.approved" svgIcon="lightning" > </mat-icon>    </td>
+     <td>
+        <button mat-raised-button color="primary" (click)="approveSubmission(submission);" 
+        class="btn-w-md" [disabled]="submission?.approved == true">Approve</button>
       </td>
      </tr>
     </tbody>
