@@ -11,6 +11,9 @@ import { ProposalListComponent } from './proposal-list/proposal-list.component';
 import { ProposalEditComponent } from './proposal-edit/proposal-edit.component';
 import { ProposalAddComponent } from './proposal-add/proposal-add.component';
 import { SubmissionListComponent } from './submission-list/submission-list.component';
+import { MNavComponent } from './m-nav/m-nav.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
 
 
 @NgModule({
@@ -19,7 +22,8 @@ import { SubmissionListComponent } from './submission-list/submission-list.compo
     ProposalListComponent,
     ProposalEditComponent,
     ProposalAddComponent,
-    SubmissionListComponent
+    SubmissionListComponent,
+    MNavComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +31,13 @@ import { SubmissionListComponent } from './submission-list/submission-list.compo
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
