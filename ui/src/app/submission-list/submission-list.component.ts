@@ -26,9 +26,10 @@ export class SubmissionListComponent implements OnInit {
   }
 
   approveSubmission(submission: Submission): void {
-    this.apiService.updateSubmission(submission)
+    submission.approved = true;
+    this.apiService.approveSubmission(submission)
     .subscribe( data => {
-      console.log(data);
+      this.ngOnInit();
     });
   }
 }

@@ -38,7 +38,7 @@ public class ScheduledSession {
     @Size(max=3)  //TODO make max size externally configurable?
     private Set<Submission> submissions = new HashSet<>();
 
-    public void setSubmissions(final List<Submission> submissionsIn) {
+    public void setSubmissions(final Set<Submission> submissionsIn) {
         submissionsIn.forEach(sub -> {sub.setScheduledSession(this); sub.setApproved(true);});
         submissions.clear();
         submissions.addAll(submissionsIn);

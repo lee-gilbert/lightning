@@ -9,6 +9,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.util.StringUtils;
+import org.springframework.web.reactive.config.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -31,11 +34,29 @@ public class LightningtalksApplication {
 					"a@b.com", false, false);
 			lts.updateTopicProposal(tp);
 
-			Submission sess = new Submission(
+			Submission sess1 = new Submission(
+					"yay1",
+					"desc",
+					"a@b.com", TalkDateStreamUtil.nextTalkDate(), LocalDateTime.now());
+			lts.updateSubmission(sess1);
+
+			Submission sess2 = new Submission(
 					"yay2",
 					"desc",
 					"a@b.com", TalkDateStreamUtil.nextTalkDate(), LocalDateTime.now());
-			lts.updateSubmission(sess);
+			lts.updateSubmission(sess2);
+
+			Submission sess3 = new Submission(
+					"yay3",
+					"desc",
+					"a@b.com", TalkDateStreamUtil.nextTalkDate(), LocalDateTime.now());
+			lts.updateSubmission(sess3);
+
+			Submission sess4 = new Submission(
+					"yay4",
+					"desc",
+					"a@b.com", TalkDateStreamUtil.nextTalkDate(), LocalDateTime.now());
+			lts.updateSubmission(sess4);
 
 		};
 	}

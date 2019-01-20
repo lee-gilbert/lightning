@@ -11,9 +11,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Component("lightningTalksService")
 @Transactional
@@ -91,8 +93,38 @@ public class LightningTalksService {
        return this.submissionRepository.saveAndFlush(submission);
     }
 
+
     public Submission updateSubmission(Submission submission) {
         Assert.notNull(submission, "Submission must not be null");
+        return this.submissionRepository.saveAndFlush(submission);
+    }
+
+    public Submission approveSubmission(Submission submission, String approverEmail) {
+        Assert.notNull(submission, "Submission must not be null");
+        if (submission.getScheduledSession() == null ) {
+            Optional<ScheduledSession> SSForDate = scheduledSessionRepository.findByLightningTalkDate(submission.getTargetLightningTalkDate());
+            Set<Submission> tmp = new HashSet<>();
+            tmp.add(submission);
+            if (SSForDate.isPresent()) {
+                ScheduledSession ss = SSForDate.get();
+                Set<Submission> submissions = ss.getSubmissions();
+                if (submissions.size() <3) {
+                    tmp.addAll(submissions);
+                    ss.setSubmissions(tmp);
+                    submission.setScheduledSession(ss);
+                } else {
+                    submission.setApproved(false);
+                    return submission;  // TODO should throw exception instead
+                }
+            } else {
+                ScheduledSession newSS = new ScheduledSession();
+                newSS.setContactEmail(approverEmail);
+                newSS.setLightningTalkDate(submission.getTargetLightningTalkDate());
+                scheduledSessionRepository.saveAndFlush(newSS);
+                submission.setScheduledSession(newSS);
+            }
+        }
+        submission.setApproved(true);
         return this.submissionRepository.saveAndFlush(submission);
     }
 

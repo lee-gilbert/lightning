@@ -48,8 +48,8 @@ export class BackendApiService {
 
   /** Submissions */
 
-  updateSubmission(submission: Submission): Observable<ApiResponse> {
-    return this.http.put<ApiResponse>(this.submissionlURL + submission.id, submission); // update Submission
+  approveSubmission(submission: Submission): Observable<ApiResponse> {
+    return this.http.put<ApiResponse>(this.submissionlURL + submission.id + '/approve', submission); // update Submission
   }
 
   getSubmissions(): Observable<ApiResponse> {

@@ -168,19 +168,19 @@ public class LightningTalksController {
     }
 
     /**
-     * PUT  /submission/{id} -> Update an existing Submission.
-     * Allows only updates to the 'Submission.approved' field.
+     * PUT  /submission/{id}/approve -> Approves an existing Submission and creates/updates a ScheduledSession for the unique TalkDate.
+     * Input allows only updates to the 'Submission.approved' field.
      */
-    @PutMapping(value = "/submission/{id}")
-    public ApiResponse<Submission> updateSubmission(@PathVariable Long id, @RequestBody Submission submissionIn, @Context HttpServletResponse resp) {
-        log.debug("REST-PUT request to update existing Submission : {}", submissionIn);
+    @PutMapping(value = "/submission/{id}/approve")
+    public ApiResponse<Submission> approveSubmission(@PathVariable Long id, @RequestBody Submission submissionIn, @Context HttpServletResponse resp) {
+        log.debug("REST-PUT request to approve existing Submission : {}", submissionIn);
         return lightningTalksService.findSubmissionById(id)
                 .map(foundForUpdate -> {
                     //BeanUtils.copyProperties(submissionIn, foundForUpdate);
                     foundForUpdate.setApproved(submissionIn.getApproved());
-                    Submission updated = lightningTalksService.updateSubmission(foundForUpdate);
-                    return new ApiResponse<Submission>(HttpStatus.OK.value(), "Submission fetched successfully", updated);
+                    Submission updated = lightningTalksService.approveSubmission(foundForUpdate, "FIXME user-email");
+                    return new ApiResponse<Submission>(HttpStatus.OK.value(), "Submission approved successfully", updated);
                 })
-                .orElse(new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Submission update failed", null));
+                .orElse(new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Submission approval failed", null));
     }
 }

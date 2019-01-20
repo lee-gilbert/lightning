@@ -17,8 +17,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
+import java.util.Set;
 import java.util.function.Function;
 
 import java.util.stream.Stream;
@@ -94,7 +96,8 @@ public class LightningtalksApplicationJPATests {
 
 		create3Submissions(targetLightningTalkDate);
 
-		final List<Submission> savedSubmissions = submissionRepository.findAll();
+		final Set<Submission> savedSubmissions = new HashSet<>();
+		savedSubmissions.addAll(submissionRepository.findAll());
 		Assert.assertThat("# of submissions found " , savedSubmissions.size(), is(3));
 
 		ScheduledSession newScheduledSession = new ScheduledSession(targetLightningTalkDate, "email");
