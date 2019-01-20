@@ -3,13 +3,15 @@ package com.leeGilbert.ltk.domain;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.ConstraintViolationException;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Scheduled talk event.
+ */
 @Entity(name = "scheduledSession")
 @Data
 @RequiredArgsConstructor

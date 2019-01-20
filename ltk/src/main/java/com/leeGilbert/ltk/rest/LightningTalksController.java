@@ -9,7 +9,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,12 +18,12 @@ import javax.validation.ConstraintViolationException;
 import javax.ws.rs.core.Context;
 
 import java.net.URISyntaxException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 /**
  *  REST endpoints for LightningTalks.
+ *  Tx commit-point enforced by delegated lightningTalksService.
  */
 @RestController
 @RequestMapping("/api")
@@ -119,6 +118,15 @@ public class LightningTalksController {
 
     //** Submission *************************************************************************************************
 
+    /**
+     * GET  /submission -> Submissions list.
+     */
+    @GetMapping(value = "/submission")
+    @Transactional(readOnly = true)
+    public ApiResponse<List<Submission>> findAllSubmission() {
+        log.debug("REST-GET request to retrieve TopicProposal ");
+        return new ApiResponse<List<Submission>>(HttpStatus.OK.value(), "success", lightningTalksService.findAllSubmission());
+    }
 
     /**
      * POST  /submission -> Add/Create a new Submission.

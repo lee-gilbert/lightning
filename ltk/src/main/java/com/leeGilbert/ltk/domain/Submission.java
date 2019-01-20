@@ -10,6 +10,10 @@ import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+/**
+ * Represents a submitted TopicProposal, available for Talk scheduling.
+ * A ScheduledSession represents the latter talk event.
+ */
 @Entity(name = "submission")
 @Data
 @RequiredArgsConstructor
