@@ -13,7 +13,8 @@ import { ProposalAddComponent } from './proposal-add/proposal-add.component';
 import { SubmissionListComponent } from './submission-list/submission-list.component';
 import { MNavComponent } from './m-nav/m-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
+import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatPaginatorModule } from '@angular/material';
+import { MatTableModule } from '@angular/material/table';
 
 
 @NgModule({
@@ -37,7 +38,9 @@ import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, Mat
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

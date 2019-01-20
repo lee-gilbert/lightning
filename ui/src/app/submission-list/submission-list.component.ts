@@ -1,7 +1,9 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import {Router} from '@angular/router';
 import {Submission} from '../model/submission.model';
 import {BackendApiService} from '../services/backend-api.service';
+import { MatTableDataSource} from '@angular/material/table';
+import { MatPaginator} from '@angular/material';
 
 @Component({
   selector: 'ltk-submission-list',
@@ -11,6 +13,10 @@ import {BackendApiService} from '../services/backend-api.service';
 export class SubmissionListComponent implements OnInit {
 
   submissions: Submission[];
+  displayedColumns: string[] = ['id', 'topic', 'description', 'email', 'created', 'targetLightningTalkDate', 'approved', 'approveBtn'];
+  dataSource: MatTableDataSource<Submission> = new MatTableDataSource(new Array(0));
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private router: Router, private apiService: BackendApiService) { }
 
@@ -21,9 +27,11 @@ export class SubmissionListComponent implements OnInit {
 //    }
     this.apiService.getSubmissions()
       .subscribe( data => {
-          this.submissions = data.result;
+          this.dataSource = new MatTableDataSource(data.result);
+          this.dataSource.paginator = this.paginator;
       });
-  }
+
+  } // ngOnInit
 
   approveSubmission(submission: Submission): void {
     submission.approved = true;

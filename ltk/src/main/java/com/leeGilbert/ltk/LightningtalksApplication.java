@@ -35,7 +35,7 @@ public class LightningtalksApplication {
 			lts.updateTopicProposal(tp);
 
 			Submission sess1 = new Submission(
-					"yay1",
+					"yay1 yay1 yay1",
 					"desc",
 					"a@b.com", TalkDateStreamUtil.nextTalkDate(), LocalDateTime.now());
 			lts.updateSubmission(sess1);
@@ -57,6 +57,18 @@ public class LightningtalksApplication {
 					"desc",
 					"a@b.com", TalkDateStreamUtil.nextTalkDate(), LocalDateTime.now());
 			lts.updateSubmission(sess4);
+
+			Submission sess5 = new Submission(
+					"yay5 yay5 yay5 yay5 yay5 yay5 yay5 yay5 yay5 yay5 yay5 yay5 yay5 yay5 yay5",
+					"desc",
+					"a@b.com", TalkDateStreamUtil.nextTalkDate(), LocalDateTime.now());
+			lts.updateSubmission(sess5);
+
+			Submission sess6 = new Submission(
+					"yay6 yay6 yay6 yay6 yay6 yay6 yay6 yay6 yay6 yay6 yay6 yay6 yay6 yay6 yay6",
+					"desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc",
+					"a@b.com", TalkDateStreamUtil.nextTalkDate(), LocalDateTime.now());
+			lts.updateSubmission(sess6);
 
 		};
 	}
