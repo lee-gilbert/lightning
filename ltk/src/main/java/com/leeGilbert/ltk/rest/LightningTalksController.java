@@ -164,7 +164,7 @@ public class LightningTalksController {
             return new ApiResponse<>(HttpStatus.BAD_REQUEST.value(),  message, null);
         }
         resp.setStatus(HttpStatus.CREATED.value());
-        return new ApiResponse<>(HttpStatus.CREATED.value(), "TopicProposal created", submission);
+        return new ApiResponse<>(HttpStatus.CREATED.value(), "Submission created", submission);
     }
 
     /**

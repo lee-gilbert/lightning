@@ -1,15 +1,16 @@
-import { Component, OnInit , Inject} from '@angular/core';
+import { Component, OnInit , ChangeDetectionStrategy, Inject} from '@angular/core';
 import {Router} from '@angular/router';
 import {Proposal} from '../model/proposal.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 import {BackendApiService} from '../services/backend-api.service';
-import { debug } from 'util';
+
 
 @Component({
   selector: 'ltk--proposal-edit',
   templateUrl: './proposal-edit.component.html',
-  styleUrls: ['./proposal-edit.component.scss']
+  styleUrls: ['./proposal-edit.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Default
 })
 
 export class ProposalEditComponent implements OnInit {
@@ -27,9 +28,9 @@ export class ProposalEditComponent implements OnInit {
     }
     this.editForm = this.formBuilder.group({
       id: [''],
-      topic: ['', Validators.required],
-      description: ['', Validators.required],
-      email: ['', Validators.required],
+      topic: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(80)]],
+      description: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(120)]],
+      email: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255), Validators.email]],
       submitted: ['']
     });
     this.apiService.getProposalById(+proposalId)

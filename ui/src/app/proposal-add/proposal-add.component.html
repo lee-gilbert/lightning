@@ -5,25 +5,39 @@
       </mat-card-title>    
 
   <mat-card-content>   
-  <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="addForm" (ngSubmit)="onSubmit();">
     <div class="hidden">
       <input type="text" formControlName="id" placeholder="id" name="id" class="form-control" hidden="true" id="id">
     </div>
-    <div class="form-group">
-      <label for="topic">Topic:</label>
-      <input type="text" formControlName="topic" placeholder="topic" name="topic" class="form-control" id="topic">
-    </div>
-
-    <div class="form-group">
-      <label for="description">Description:</label>
-      <input formControlName="description" placeholder="description" name="description" class="form-control" id="description">
-    </div>
-
-    <div class="form-group">
-      <label for="email">Email Address:</label>
-      <input formControlName="email" placeholder="Email" name="email" class="form-control" id="email">
-    </div>
-    <button class="btn btn-success">Add</button>
+    <table>    
+        <tr>    
+            <td>    
+                <mat-form-field class="form-group">    
+                    <input matInput formControlName="topic" id="topic" placeholder="Topic:"  type="text" >  
+                </mat-form-field>    
+            </td>    
+        </tr>    
+        <tr>    
+            <td>    
+                <mat-form-field class="form-group">    
+                    <textarea matInput formControlName="description" id="description" placeholder="Description:" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5"></textarea>    
+                </mat-form-field>    
+            </td>    
+        </tr> 
+        <tr>    
+            <td>    
+                <mat-form-field class="form-group">    
+                    <input matInput formControlName="email" placeholder="Email Address:" type="text" id="email"> 
+                    <mat-error *ngFor="let validation of email">
+                        <mat-error class="error-message" *ngIf="addForm.get('email').hasError(validation.type) 
+                        && (addForm.get('email').dirty || addForm.get('email').touched)">{{validation.message}}</mat-error>
+                      </mat-error>   
+                </mat-form-field>    
+            </td>    
+        </tr> 
+      </table>
+ 
+    <button mat-raised-button color="primary" style="margin: 10px; width:100px">Add </button>
   </form>
   </mat-card-content>
   </mat-card>
