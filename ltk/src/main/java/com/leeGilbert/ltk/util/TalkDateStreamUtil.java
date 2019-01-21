@@ -33,6 +33,10 @@ public final class TalkDateStreamUtil {
         return TalkDateStreamUtil.newTalkDateStream(LocalDate.now()).limit(1).findFirst().get();
     }
 
+    public static LocalDate forwardTalkDate(int nextn) {
+        return TalkDateStreamUtil.newTalkDateStream(LocalDate.now()).limit(nextn).reduce((first, second) -> second).get();
+    }
+
     private static final Function<Long, Long> epochAdd2months = epoch -> LocalDate.ofEpochDay(epoch).plusMonths(2).withDayOfMonth(1).toEpochDay();
 
     private static LocalDate calcNextTalkDate(Long startFromEpoch) {

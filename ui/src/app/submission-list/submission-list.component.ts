@@ -12,8 +12,7 @@ import { MatPaginator} from '@angular/material';
 })
 export class SubmissionListComponent implements OnInit {
 
-  submissions: Submission[];
-  displayedColumns: string[] = ['id', 'topic', 'description', 'email', 'created', 'targetLightningTalkDate', 'approved', 'approveBtn'];
+  displayedColumns: string[] = ['topic', 'description', 'targetLightningTalkDate', 'approved', 'approveBtn'];
   dataSource: MatTableDataSource<Submission> = new MatTableDataSource(new Array(0));
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

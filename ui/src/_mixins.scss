@@ -1,0 +1,9 @@
+
+@mixin table-cell-width($child, $width, $padding: 0px) {
+    td.md-cell:nth-child(#{$child}),
+    th.md-column:nth-child(#{$child}) {
+      min-width: $width !important;
+      max-width: $width !important;
+      padding: $padding !important;
+    }
+  }

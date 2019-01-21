@@ -1,28 +1,68 @@
 <div class="col-md-6 proposal-container">
-  <h2 style="margin: auto"> Lightning Talk Proposals</h2>
-  <button class="btn btn-danger" style="width:100px" (click)="addProposal()"> Add Topic Proposal</button>
-  <table class="table table-striped">
-    <thead>
-    <tr>
-      <th class="hidden">id</th>
-      <th>topic</th>
-      <th>description</th>
-      <th>email</th>
-      <th>submitted</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let proposal of proposals">
-      <td class="hidden">{{proposal.id}}</td>
-      <td>{{proposal.topic}}</td>
-      <td>{{proposal.description}}</td>
-      <td>{{proposal.email}}</td>
-      <td>{{proposal.submitted}}</td>
-      <td><button class="btn btn-success" (click)="deleteProposal(proposal)"> Delete</button>
-        <button class="btn btn-success" (click)="editProposal(proposal)" style="margin-left: 20px;"> Edit</button>
-        <button class="btn btn-success" (click)="submitProposal(proposal)" style="margin-left: 20px;"> Submit</button>
+  <mat-card>     
+      <mat-card-title>    
+          Draft Proposals 
+      </mat-card-title>    
+  <mat-card-content>   
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let tcol"> {{tcol.id}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="topic">
+      <th mat-header-cell *matHeaderCellDef> Topic </th>
+      <td mat-cell *matCellDef="let tcol"> {{tcol.topic}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef> Description </th>
+      <td mat-cell *matCellDef="let tcol"> {{tcol.description}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef> Email </th>
+      <td mat-cell *matCellDef="let tcol"> {{tcol.email}} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="submitted">
+      <th mat-header-cell *matHeaderCellDef> Submitted </th>
+      <td mat-cell *matCellDef="let tcol"> {{tcol.submitted}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="deleteBtn">
+      <th mat-header-cell *matHeaderCellDef> </th>
+      <td mat-cell *matCellDef="let tcol"> 
+      <button mat-raised-button color="primary" (click)="deleteProposal(tcol);" 
+        class="btn-w-md">Delete</button>
       </td>
-    </tr>
-    </tbody>
+    </ng-container>  Widget.AppCompat.Button.Colored
+
+    <ng-container matColumnDef="editBtn">
+      <th mat-header-cell *matHeaderCellDef> </th>
+      <td mat-cell *matCellDef="let tcol"> 
+      <button mat-raised-button color="primary" (click)="editProposal(tcol);" 
+        class="btn-w-md">Edit</button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="submitBtn">
+      <th mat-header-cell *matHeaderCellDef> </th>
+      <td mat-cell *matCellDef="let tcol"> 
+      <button mat-raised-button color="primary" (click)="submitProposal(tcol);" 
+        class="btn-w-md">Submit</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+<br> 
+  <ng-container >
+      <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+      <button mat-raised-button color="primary" (click)="addProposal();" style="margin: 10px; width:100px">Add </button>
+  </ng-container>
+ 
+</mat-card-content>
+</mat-card>
 </div>

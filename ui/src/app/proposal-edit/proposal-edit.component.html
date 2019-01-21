@@ -1,5 +1,10 @@
 <div class="col-md-6 proposal-container">
-  <h2 class="text-center">Edit Proposal</h2>
+  <mat-card>     
+      <mat-card-title>    
+          Edit a Lightning Talk Proposal  
+      </mat-card-title>    
+  <mat-card-content>   
+
   <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
     <div class="hidden">
       <input type="text" formControlName="id" placeholder="id" name="id" class="form-control" id="id">
@@ -20,5 +25,7 @@
     </div>
     <button class="btn btn-success">Update</button>
   </form>
-</div>
 
+</mat-card-content>
+</mat-card>
+</div>

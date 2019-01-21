@@ -1,7 +1,9 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import {Component, OnInit, ViewChild, Inject } from '@angular/core';
 import {Router} from '@angular/router';
 import {Proposal} from '../model/proposal.model';
 import {BackendApiService} from '../services/backend-api.service';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material';
 
 @Component({
   selector: 'ltk-proposal-list',
@@ -10,7 +12,10 @@ import {BackendApiService} from '../services/backend-api.service';
 })
 export class ProposalListComponent implements OnInit {
 
-  proposals: Proposal[];
+  displayedColumns: string[] = ['topic', 'description', 'email', 'editBtn', 'submitBtn', 'deleteBtn'];
+  dataSource: MatTableDataSource<Proposal> = new MatTableDataSource(new Array(0));
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private router: Router, private apiService: BackendApiService) { }
 
@@ -21,14 +26,15 @@ export class ProposalListComponent implements OnInit {
 //    }
     this.apiService.getProposals()
       .subscribe( data => {
-          this.proposals = data.result;
+        this.dataSource = new MatTableDataSource(data.result);
+        this.dataSource.paginator = this.paginator;
       });
   }
 
   deleteProposal(proposal: Proposal): void {
     this.apiService.deleteProposal(proposal.id)
       .subscribe( data => {
-        this.proposals = this.proposals.filter(p => p !== proposal);
+        this.dataSource.data.filter(p => p !== proposal);
       });
   }
 

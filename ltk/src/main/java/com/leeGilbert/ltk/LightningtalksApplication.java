@@ -13,6 +13,7 @@ import org.springframework.web.reactive.config.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
@@ -64,11 +65,25 @@ public class LightningtalksApplication {
 					"a@b.com", TalkDateStreamUtil.nextTalkDate(), LocalDateTime.now());
 			lts.updateSubmission(sess5);
 
+			LocalDate targetLightningTalkDate2 = TalkDateStreamUtil.forwardTalkDate(2); // advance to next lightning talk
+
 			Submission sess6 = new Submission(
 					"yay6 yay6 yay6 yay6 yay6 yay6 yay6 yay6 yay6 yay6 yay6 yay6 yay6 yay6 yay6",
 					"desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc",
-					"a@b.com", TalkDateStreamUtil.nextTalkDate(), LocalDateTime.now());
+					"a@b.com", targetLightningTalkDate2, LocalDateTime.now());
 			lts.updateSubmission(sess6);
+
+			Submission sess7 = new Submission(
+					"yay7",
+					"desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc",
+					"a@b.com", targetLightningTalkDate2, LocalDateTime.now());
+			lts.updateSubmission(sess7);
+
+			Submission sess8 = new Submission(
+					"yay8",
+					"desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc",
+					"a@b.com", targetLightningTalkDate2, LocalDateTime.now());
+			lts.updateSubmission(sess8);
 
 		};
 	}
