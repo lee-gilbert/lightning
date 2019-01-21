@@ -41,10 +41,10 @@ ngOnInit() {
 
   onSubmit() {
     if (this.addForm.valid) {
-    this.apiService.createProposal(this.addForm.value)
-      .subscribe( data => {
-        this.router.navigate(['proposal-list']);
-      });
+      this.apiService.createProposal(this.addForm.value)
+        .subscribe( data => {
+          this.router.navigate(['proposal-list']);
+        });
   } else {
     this.validateAllFormFields(this.addForm);
   }

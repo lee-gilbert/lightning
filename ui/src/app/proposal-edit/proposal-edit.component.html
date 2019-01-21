@@ -4,7 +4,7 @@
           Edit a Lightning Talk Proposal  
       </mat-card-title>
 <mat-card-content>   
-    <form [formGroup]="editForm" (ngSubmit)="onSubmit();">
+    <form [formGroup]="editForm" novalidate (ngSubmit)="onSubmit();">
       <div class="hidden">
         <input type="text" formControlName="id" placeholder="id" name="id" class="form-control" hidden="true" id="id">
       </div>
@@ -13,6 +13,10 @@
               <td>    
                   <mat-form-field class="form-group">    
                       <input matInput formControlName="topic" id="topic" placeholder="Topic:"  type="text" >  
+                      <mat-hint>Not more then 80 characters long.</mat-hint>
+                      <mat-error *ngIf="editForm.controls['topic'].errors?.required">Topic is required</mat-error> 
+                      <mat-error *ngIf="editForm.controls['topic'].errors?.maxlength">You have more than 80 characters</mat-error>
+                      <mat-error *ngIf="editForm.controls['topic'].errors?.minlength">You should have more than 3 characters</mat-error> 
                   </mat-form-field>    
               </td>    
           </tr>    
@@ -20,18 +24,19 @@
               <td>    
                   <mat-form-field class="form-group">    
                       <textarea matInput formControlName="description" id="description" placeholder="Description:" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5"></textarea>    
-                  </mat-form-field>    
+                      <mat-hint>Not more then 120 characters long.</mat-hint>
+                      <mat-error *ngIf="editForm.controls['description'].errors?.required">Description is required</mat-error>
+                      <mat-error *ngIf="editForm.controls['description'].errors?.maxlength">You have more than 120 characters</mat-error>
+                      <mat-error *ngIf="editForm.controls['description'].errors?.minlength">You should have more than 3 characters</mat-error> 
+                    </mat-form-field>    
               </td>    
           </tr> 
           <tr>    
               <td>    
                   <mat-form-field class="form-group">    
                       <input matInput formControlName="email" placeholder="Email Address:" type="text" id="email"> 
-                      <mat-error *ngFor="let validation of email">
-                          <mat-error class="error-message" *ngIf="editForm.get('email').hasError(validation.type) 
-                          && (editForm.get('email').dirty || editForm.get('email').touched)">{{validation.message}}</mat-error>
-                        </mat-error>   
-                  </mat-form-field>    
+                      <mat-error *ngIf="editForm.controls['email'].errors?.email">You should have a valid email address</mat-error> 
+                    </mat-form-field>    
               </td>    
           </tr> 
         </table>

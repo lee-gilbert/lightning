@@ -1,7 +1,7 @@
 import { Component, OnInit , ChangeDetectionStrategy, Inject} from '@angular/core';
 import {Router} from '@angular/router';
 import {Proposal} from '../model/proposal.model';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 import {BackendApiService} from '../services/backend-api.service';
 
@@ -18,6 +18,17 @@ export class ProposalEditComponent implements OnInit {
   proposal: Proposal;
   editForm: FormGroup;
   constructor(private formBuilder: FormBuilder, private router: Router, private apiService: BackendApiService) { }
+
+  validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
+      }
+    });
+  }
 
   ngOnInit() {
     const proposalId = window.localStorage.getItem('editProposalId');
@@ -40,6 +51,7 @@ export class ProposalEditComponent implements OnInit {
   }
 
   onSubmit() {
+    if (this.editForm.valid) {
     this.apiService.updateProposal(this.editForm.value)
       .pipe(first())
       .subscribe(
@@ -54,5 +66,8 @@ export class ProposalEditComponent implements OnInit {
         error => {
           alert(error);
         });
+      } else {
+        this.validateAllFormFields(this.editForm);
+      }
   }
 }
