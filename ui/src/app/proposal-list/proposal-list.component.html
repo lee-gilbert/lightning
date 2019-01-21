@@ -33,24 +33,26 @@
     <ng-container matColumnDef="deleteBtn">
       <th mat-header-cell *matHeaderCellDef> </th>
       <td mat-cell *matCellDef="let tcol"> 
-      <button mat-raised-button color="primary" (click)="deleteProposal(tcol);" 
-        class="btn-w-md">Delete</button>
+        <button mat-icon-button color="primary" (click)="deleteProposal(tcol);" >
+            <mat-icon aria-label="Delete">delete</mat-icon>
+         </button>
       </td>
-    </ng-container>  Widget.AppCompat.Button.Colored
+ 
+    </ng-container>
 
     <ng-container matColumnDef="editBtn">
       <th mat-header-cell *matHeaderCellDef> </th>
       <td mat-cell *matCellDef="let tcol"> 
-      <button mat-raised-button color="primary" (click)="editProposal(tcol);" 
-        class="btn-w-md">Edit</button>
+        <button mat-icon-button color="primary" (click)="editProposal(tcol);" >
+            <mat-icon aria-label="Edit">edit</mat-icon>
+         </button>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="submitBtn">
       <th mat-header-cell *matHeaderCellDef> </th>
       <td mat-cell *matCellDef="let tcol"> 
-      <button mat-raised-button color="primary" (click)="submitProposal(tcol);" 
-        class="btn-w-md"  [disabled]="tcol.submitted == true">Submit</button>
+      <button mat-raised-button color="primary" (click)="submitProposal(tcol);" class="btn-w-md"  [disabled]="tcol.submitted == true">Submit</button>
       </td>
     </ng-container>
 

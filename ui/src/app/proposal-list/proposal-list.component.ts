@@ -14,7 +14,7 @@ import {MatPaginator} from '@angular/material';
 })
 export class ProposalListComponent implements OnInit {
 
-  displayedColumns: string[] = ['topic', 'description', 'email', 'editBtn', 'submitBtn', 'deleteBtn'];
+  displayedColumns: string[] = ['topic', 'description', 'email', 'editBtn', 'deleteBtn', 'submitBtn'];
   dataSource: MatTableDataSource<Proposal> = new MatTableDataSource(new Array(0));
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
