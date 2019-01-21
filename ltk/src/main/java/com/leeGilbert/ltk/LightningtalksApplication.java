@@ -64,26 +64,26 @@ public class LightningtalksApplication {
 					"desc",
 					"a@b.com", TalkDateStreamUtil.nextTalkDate(), LocalDateTime.now());
 			lts.updateSubmission(sess5);
-
-			LocalDate targetLightningTalkDate2 = TalkDateStreamUtil.forwardTalkDate(2); // advance to next lightning talk
-
-			Submission sess6 = new Submission(
-					"yay6 yay6 yay6 yay6 yay6 yay6 yay6 yay6 yay6 yay6 yay6 yay6 yay6 yay6 yay6",
-					"desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc",
-					"a@b.com", targetLightningTalkDate2, LocalDateTime.now());
-			lts.updateSubmission(sess6);
-
-			Submission sess7 = new Submission(
-					"yay7",
-					"desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc",
-					"a@b.com", targetLightningTalkDate2, LocalDateTime.now());
-			lts.updateSubmission(sess7);
-
-			Submission sess8 = new Submission(
-					"yay8",
-					"desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc",
-					"a@b.com", targetLightningTalkDate2, LocalDateTime.now());
-			lts.updateSubmission(sess8);
+//
+//			LocalDate targetLightningTalkDate2 = TalkDateStreamUtil.forwardTalkDate(2); // advance to next lightning talk
+//
+//			Submission sess6 = new Submission(
+//					"yay6 yay6 yay6 yay6 yay6 yay6 yay6 yay6 yay6 yay6 yay6 yay6 yay6 yay6 yay6",
+//					"desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc",
+//					"a@b.com", targetLightningTalkDate2, LocalDateTime.now());
+//			lts.updateSubmission(sess6);
+//
+//			Submission sess7 = new Submission(
+//					"yay7",
+//					"desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc",
+//					"a@b.com", targetLightningTalkDate2, LocalDateTime.now());
+//			lts.updateSubmission(sess7);
+//
+//			Submission sess8 = new Submission(
+//					"yay8",
+//					"desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc",
+//					"a@b.com", targetLightningTalkDate2, LocalDateTime.now());
+//			lts.updateSubmission(sess8);
 
 		};
 	}
