@@ -27,9 +27,10 @@ The original Proposal object also remains available for view/edit, until it is d
 
 ## Running the Angular UI App
 
-1a)  App can be run from command line:
+1a)  App can be run from command line (Note: node v11 must be installed first.):
 
 cmd\> `cd ui` 
+<br> Run cmd\> `npm install` to update packages.
 <br> Run cmd\> `ng serve` to start a dev server. Navigate to `http://localhost:4200/`
 
 The UI requires the backend also to be started.
