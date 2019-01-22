@@ -37,7 +37,7 @@ The UI requires the backend also to be started.
 Follow instructons in `.\ltk\readme.md` 
 
 ## Known Issues
-- If an attempt is made to save a Proposal with a topic that already exists on the backend (i.e. is duplicateed), no validation error is displayed, and this also prevents the proposal being saved until the topic name is changed.
+- If an attempt is made to save a Proposal with a topic that already exists on the backend (i.e. is duplicated), no validation error is displayed, and this also prevents the proposal being saved until the topic name is changed.
 
 ## Optional UI todos
 
