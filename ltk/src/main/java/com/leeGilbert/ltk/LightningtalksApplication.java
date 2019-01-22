@@ -30,39 +30,39 @@ public class LightningtalksApplication {
 		return (e) -> {
 			//test data
 			TopicProposal tp = new TopicProposal(null,
-					"yay",
-					"desc",
+					"Microservices",
+					"Microservices, their definition, and pros and cons.",
 					"a@b.com", false, false);
 			lts.updateTopicProposal(tp);
 
 			Submission sess1 = new Submission(
-					"yay1 yay1 yay1",
-					"desc",
-					"a@b.com", TalkDateStreamUtil.nextTalkDate(), LocalDateTime.now());
+					"Angular 7 Improvements",
+					"Whats new in v7",
+					"c@b.com", TalkDateStreamUtil.nextTalkDate(), LocalDateTime.now());
 			lts.updateSubmission(sess1);
 
 			Submission sess2 = new Submission(
-					"yay2",
-					"desc",
+					"Aria",
+					"Supporting Aria in html Forms, issues with legacy apps.",
 					"a@b.com", TalkDateStreamUtil.nextTalkDate(), LocalDateTime.now());
 			lts.updateSubmission(sess2);
 
 			Submission sess3 = new Submission(
-					"yay3",
-					"desc",
+					"Kibana Reporting",
+					"Elasticsearch and Kibana",
 					"a@b.com", TalkDateStreamUtil.nextTalkDate(), LocalDateTime.now());
 			lts.updateSubmission(sess3);
 
 			Submission sess4 = new Submission(
-					"yay4",
-					"desc",
+					"Good code design practices",
+					"GOF Patterns, SOLID etc",
 					"a@b.com", TalkDateStreamUtil.nextTalkDate(), LocalDateTime.now());
 			lts.updateSubmission(sess4);
 
 			Submission sess5 = new Submission(
-					"yay5 yay5 yay5 yay5 yay5 yay5 yay5 yay5 yay5 yay5 yay5 yay5 yay5 yay5 yay5",
-					"desc",
-					"a@b.com", TalkDateStreamUtil.nextTalkDate(), LocalDateTime.now());
+					"Functional Programming Idioms",
+					"Useful design idioms from Functional programming land",
+					"z@b.com", TalkDateStreamUtil.nextTalkDate(), LocalDateTime.now());
 			lts.updateSubmission(sess5);
 //
 //			LocalDate targetLightningTalkDate2 = TalkDateStreamUtil.forwardTalkDate(2); // advance to next lightning talk
