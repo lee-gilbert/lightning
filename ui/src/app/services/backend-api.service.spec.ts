@@ -1,12 +1,45 @@
-import { TestBed } from '@angular/core/testing';
+// import {Injector} from '@angular/core';
+// import { TestBed, getTestBed } from '@angular/core/testing';
+// import { of } from 'rxjs';
+// import { HttpClientModule, HttpClient } from '@angular/common/http';
+// import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+// import {BackendApiService} from '../services/backend-api.service';
+// import { ApiResponse } from '../model/api.response';
+// import { Proposal } from '../model/proposal.model';
 
-import { BackendApiService } from './backend-api.service';
+// const res1: Proposal[] = [{'id': 1,
+// 'topic': 'Microservices', 'description': 'Microservices, their definition, and pros and cons.', 'email': 'a@b.com', 'submitted': false}];
+// const dummyProposals: ApiResponse = new ApiResponse(200, 'success', res1);
 
-describe('BackendApiService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+// const mockApiService = {
+//   getProposals() {
+//     return of(dummyProposals);
+//   }
+// };
 
-  it('should be created', () => {
-    const service: BackendApiService = TestBed.get(BackendApiService);
-    expect(service).toBeTruthy();
-  });
-});
+// describe('HttpTestingController test', () => {
+//   let httpMock: HttpTestingController;
+//   let http: HttpClient;
+//   let apiService: BackendApiService;
+//   beforeEach(() => {
+//       TestBed.configureTestingModule({
+//           imports: [HttpClientModule, HttpClientTestingModule],
+//           providers: [{BackendApiService , useValue: mockApiService} ]
+//       });
+//       httpMock = TestBed.get(HttpTestingController);
+//       http = TestBed.get(HttpClient);
+//       apiService = TestBed.get(BackendApiService);
+//   });
+
+//   it('should be created', () => {
+//     expect(apiService).toBeTruthy();
+//   });
+
+//   it('should get all Proposals from http', () => {
+//     const req = httpMock.expectOne(apiService.proposalURL);
+//     expect(req.request.method).toBe('GET');
+//     req.flush(dummyProposals);
+//     httpMock.verify();
+//   });
+
+// });
