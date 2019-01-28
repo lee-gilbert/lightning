@@ -7,10 +7,11 @@ import { SubmissionListComponent } from './submission-list/submission-list.compo
 
 const routes: Routes = [
   { path: 'proposal-edit', component: ProposalEditComponent },
-  { path: 'proposal-add', component: ProposalAddComponent },
+  { path: 'proposal-edit/:id', component: ProposalEditComponent },
+   { path: 'proposal-add', component: ProposalAddComponent },
   { path: 'proposal-list', component: ProposalListComponent },
   { path: 'submission-list', component: SubmissionListComponent },
-  { path: '', component: SubmissionListComponent }
+  { path: '**', redirectTo: 'submission-list' , pathMatch: 'full'}
 ];
 
 @NgModule({
