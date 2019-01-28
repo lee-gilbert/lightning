@@ -1,16 +1,23 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, ComponentFixture, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import {TestsModule} from './modules/tests.module';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {RouterModule} from '@angular/router';
 
 describe('AppComponent', () => {
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        TestsModule,
+        RouterTestingModule,
+        RouterModule
       ],
       declarations: [
         AppComponent
       ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   }));
 
@@ -20,16 +27,9 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'ui'`, () => {
+  it(`should have as title 'Lightning Talks'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('ui');
-  });
-
-  it('should render title in a h1 tag', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to ui!');
+    expect(app.title).toEqual('Lightning Talks');
   });
 });

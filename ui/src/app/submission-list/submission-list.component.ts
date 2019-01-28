@@ -24,13 +24,17 @@ export class SubmissionListComponent implements OnInit {
 //      this.router.navigate(['login']);
 //      return;
 //    }
-    this.apiService.getSubmissions()
-      .subscribe( data => {
-          this.dataSource = new MatTableDataSource(data.result);
-          this.dataSource.paginator = this.paginator;
-      });
+    this.refresh();
 
   } // ngOnInit
+
+  private refresh() {
+    this.apiService.getSubmissions()
+      .subscribe(data => {
+        this.dataSource = new MatTableDataSource(data.result);
+        this.dataSource.paginator = this.paginator;
+      });
+  }
 
   approveSubmission(submission: Submission): void {
     submission.approved = true;

@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {BackendApiService} from '../services/backend-api.service';
+import { isDefined } from '@angular/compiler/src/util';
+import { AlertService } from '../services/alert.service';
+import { Observable } from 'rxjs';
+import { ApiResponse } from '../model/api.response';
 
 @Component({
   selector: 'ltk-proposal-add',
@@ -11,7 +15,8 @@ import {BackendApiService} from '../services/backend-api.service';
 
 export class ProposalAddComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private apiService: BackendApiService) { }
+  constructor(private formBuilder: FormBuilder, private router: Router,
+    private alertService: AlertService, private apiService: BackendApiService) { }
 
   addForm: FormGroup;
 
@@ -26,9 +31,10 @@ export class ProposalAddComponent implements OnInit {
   });
 }
 
-//In case you need to handle validation messages for the FormControls as well, you can modify the code to also mark the
+// In case you need to handle validation messages for the FormControls as well, you can modify the above code to also mark the
 // FormGroup as touched by simply removing the { onlySelf: true } parameter. When we pass onlSelf: true to the markAsDirty
-//or markAsTouch (or other markAs* methods) Angular only marks the control itself. Without this option, Angular will mark the control and its parent.
+// or markAsTouch (or other markAs* methods) Angular only marks the control itself. Without this option, Angular will mark
+// the control and its parent.
 
 ngOnInit() {
     this.addForm = this.formBuilder.group({
@@ -39,15 +45,23 @@ ngOnInit() {
      });
   }
 
+  onCancel() {
+    this.router.navigate(['proposal-list']);
+    }
+
   onSubmit() {
     if (this.addForm.valid) {
       this.apiService.createProposal(this.addForm.value)
-        .subscribe( data => {
-          this.router.navigate(['proposal-list']);
+        .subscribe(
+          data => {
+            this.router.navigate(['proposal-list']);
+            this.alertService.success('Registration successful', true);
+        }, err => {
+            this.alertService.error(err);
         });
-  } else {
-    this.validateAllFormFields(this.addForm);
-  }
+   } else {
+     this.validateAllFormFields(this.addForm);
+    }
 }
 
 }

@@ -6,4 +6,5 @@ export class Submission {
     public targetLightningTalkDate: string;
     public created: string;
     public approved: boolean;
+    
   }

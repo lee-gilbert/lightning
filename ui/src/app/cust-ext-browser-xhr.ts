@@ -2,8 +2,7 @@ import {Injectable} from '@angular/core';
 import {BrowserXhr} from '@angular/http';
 @Injectable()
 /**
- * @author AhsanAyaz
- * We're extending the BrowserXhr to support CORS
+ * Extention of BrowserXhr to support CORS
  */
 export class CustExtBrowserXhr extends BrowserXhr {
   constructor() {
@@ -11,7 +10,7 @@ export class CustExtBrowserXhr extends BrowserXhr {
   }
   build(): any {
     const xhr = super.build();
-    xhr.withCredentials = true;  // this is all the magic we need for now
+    xhr.withCredentials = true;  // essential bit
     return <any>(xhr);
   }
 }

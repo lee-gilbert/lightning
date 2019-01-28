@@ -1,23 +1,22 @@
-import { Component, OnInit , ChangeDetectionStrategy, Inject} from '@angular/core';
-import {Router} from '@angular/router';
-import {Proposal} from '../model/proposal.model';
+import { Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
+import {Router} from '@angular/router';
 import {BackendApiService} from '../services/backend-api.service';
-
+import { AlertService } from '../services/alert.service';
 
 @Component({
-  selector: 'ltk--proposal-edit',
+  selector: 'ltk-proposal-edit',
   templateUrl: './proposal-edit.component.html',
-  styleUrls: ['./proposal-edit.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default
+  styleUrls: ['./proposal-edit.component.scss']
 })
 
 export class ProposalEditComponent implements OnInit {
 
-  proposal: Proposal;
   editForm: FormGroup;
-  constructor(private formBuilder: FormBuilder, private router: Router, private apiService: BackendApiService) { }
+
+  constructor(private formBuilder: FormBuilder, private router: Router, 
+    private alertService: AlertService, private apiService: BackendApiService) { }
 
   validateAllFormFields(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach(field => {
@@ -32,11 +31,7 @@ export class ProposalEditComponent implements OnInit {
 
   ngOnInit() {
     const proposalId = window.localStorage.getItem('editProposalId');
-    if (!proposalId) {
-      alert('Invalid edit action.');
-      this.router.navigate(['proposal-list']);
-      return;
-    }
+
     this.editForm = this.formBuilder.group({
       id: [''],
       topic: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(80)]],
@@ -44,10 +39,20 @@ export class ProposalEditComponent implements OnInit {
       email: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255), Validators.email]],
       submitted: ['']
     });
+
+    if (!proposalId) {
+      this.alertService.error('Invalid edit action.', true);
+      return;
+    }
+
     this.apiService.getProposalById(+proposalId)
       .subscribe( data => {
         this.editForm.setValue(data.result);
       });
+  }
+
+  onCancel() {
+    this.router.navigate(['proposal-list']);
   }
 
   onSubmit() {
@@ -57,15 +62,14 @@ export class ProposalEditComponent implements OnInit {
       .subscribe(
         data => {
           if (data.status === 200) {
-            alert('Proposal updated successfully.');
+            this.alertService.success('Proposal updated successfully.', true);
             this.router.navigate(['proposal-list']);
           } else {
-            alert(data.message);
+            this.alertService.error(data.message);
           }
-        },
-        error => {
-          alert(error);
-        });
+        }, err => {
+          this.alertService.error(err);
+      });
       } else {
         this.validateAllFormFields(this.editForm);
       }

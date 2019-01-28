@@ -2,7 +2,12 @@
   <mat-card>     
       <mat-card-title>    
           Draft Proposals 
-      </mat-card-title>    
+          <button mat-icon-button color="primary" (click)="addProposal();" >
+            <mat-icon aria-label="Edit" class="material-icons" style="font-size: 40px; display: inline-flex;
+            vertical-align: middle; padding-bottom: 5px;" >add_circle</mat-icon>
+         </button>
+     </mat-card-title>    
+ 
   <mat-card-content>   
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <ng-container matColumnDef="id">
@@ -61,10 +66,10 @@
   </table>
 <br> 
   <ng-container >
-      <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
-      <button mat-raised-button color="primary" (click)="addProposal();" style="margin: 10px; width:100px">Add </button>
+    <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
   </ng-container>
  
 </mat-card-content>
+<ltk-alert></ltk-alert>
 </mat-card>
 </div>

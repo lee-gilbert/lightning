@@ -1,16 +1,16 @@
-import {Component, OnInit, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef, Inject } from '@angular/core';
+import {Component, OnInit, ViewChild, Inject } from '@angular/core';
 import {Router} from '@angular/router';
 import {Proposal} from '../model/proposal.model';
 import {BackendApiService} from '../services/backend-api.service';
 import {MatTableDataSource} from '@angular/material/table';
 import {first} from 'rxjs/operators';
 import {MatPaginator} from '@angular/material';
+import { AlertService } from '../services/alert.service';
 
 @Component({
   selector: 'ltk-proposal-list',
   templateUrl: './proposal-list.component.html',
-  styleUrls: ['./proposal-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default
+  styleUrls: ['./proposal-list.component.scss']
 })
 export class ProposalListComponent implements OnInit {
 
@@ -19,8 +19,7 @@ export class ProposalListComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private router: Router, private apiService: BackendApiService,
-    private chgdr: ChangeDetectorRef) { }
+  constructor(public router: Router, private alertService: AlertService, private apiService: BackendApiService) { }
 
   ngOnInit() {
 //    if(!window.localStorage.getItem('token')) {
@@ -44,20 +43,16 @@ export class ProposalListComponent implements OnInit {
     .subscribe(
         data => {
           if (data.status === 200) {
-            alert('Proposal deleted successfully.');
+            this.alertService.success('Proposal deleted successfully.', true);
             // this.chgdr.markForCheck();
             this.refresh();
             this.router.navigate(['proposal-list']);
           } else {
-            if (data.status === undefined) {
-              alert(data);
-            } else {
-              alert(data.message);
-            }
+            this.alertService.error(data.message, true);
           }
         },
         error => {
-          alert(error);
+          this.alertService.error(error.message, true);
         });
   }
 
@@ -77,14 +72,14 @@ export class ProposalListComponent implements OnInit {
       .subscribe(
         data => {
           if (data.status === 201) {
-            alert('Proposal submitted successfully.');
+            this.alertService.success('Proposal submitted successfully.', true);
             this.router.navigate(['proposal-list']);
           } else {
-            alert(data.message);
+            this.alertService.error(data.message);
           }
         },
         error => {
-          alert(error);
+          this.alertService.error(error.message);
         });
   }
 

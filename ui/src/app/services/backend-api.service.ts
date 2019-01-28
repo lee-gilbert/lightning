@@ -9,10 +9,11 @@ import {Observable} from 'rxjs/index';
   providedIn: 'root'
 })
 export class BackendApiService {
+  public baseUrl = 'http://localhost:8080/api';
+  public proposalURL = this.baseUrl + '/proposal/';
+  public submissionlURL = this.baseUrl + '/submission/';
 
   constructor(private http: HttpClient) { }
-  proposalURL = 'http://localhost:8080/api/proposal/'; // TODO make config constants
-  submissionlURL = 'http://localhost:8080/api/submission/';
 
   getProposals(): Observable<ApiResponse> {
     return this.http.get<ApiResponse>(this.proposalURL);
