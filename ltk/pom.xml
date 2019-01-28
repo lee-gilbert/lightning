@@ -179,7 +179,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<!-- Por compatibility with the maven-project-info-reports-plugin 3.0.0-->
+			<!-- For compatibility with the maven-project-info-reports-plugin 3.0.0-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>

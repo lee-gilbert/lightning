@@ -14,10 +14,6 @@ public interface SubmissionRepository extends JpaRepository<Submission, Long> {
 
     Page<Submission> findAll(Pageable pageable);
 
-    Page<Submission> findByTopicContainingAllIgnoringCase(String topic, Pageable pageable);
-
-    Submission findByTopicAllIgnoringCase(String topic);
-
     Optional<Submission> findByTopicIgnoringCase(String topic);
 
 }

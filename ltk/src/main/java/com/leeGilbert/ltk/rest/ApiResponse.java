@@ -1,10 +1,9 @@
 package com.leeGilbert.ltk.rest;
 
-import lombok.NonNull;
-
 public class ApiResponse<T> {
 
-    @NonNull
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
+//    private LocalDateTime timestamp;
     private int status;
     private String message;
     private Object result;

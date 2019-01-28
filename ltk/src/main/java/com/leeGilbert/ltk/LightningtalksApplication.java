@@ -7,17 +7,13 @@ import com.leeGilbert.ltk.util.TalkDateStreamUtil;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.util.StringUtils;
-import org.springframework.web.reactive.config.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 
-@SpringBootApplication
+
+@SpringBootApplication(exclude = ErrorMvcAutoConfiguration.class )
 public class LightningtalksApplication {
 
 	public static void main(String[] args) {

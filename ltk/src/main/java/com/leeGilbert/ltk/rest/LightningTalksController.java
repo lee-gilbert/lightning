@@ -34,6 +34,13 @@ public class LightningTalksController {
     @Autowired
     private LightningTalksService lightningTalksService;
 
+//    @Bean  // Prevent MVC redirect to error page
+//    public DispatcherServlet dispatcherServlet() {
+//        DispatcherServlet ds = new DispatcherServlet();
+//        ds.setThrowExceptionIfNoHandlerFound(false);
+//        return ds;
+//    }
+
     //** TopicProposal *************************************************************************************************
     /**
      * GET  /proposal -> Retrieves TopicProposal list.
@@ -112,7 +119,7 @@ public class LightningTalksController {
     public ApiResponse<Void>  deleteTopicProposal(@PathVariable Long id) {
         log.debug("REST request to delete Things : {}", id);
         lightningTalksService.deleteTopicProposalById(id);
-        return new ApiResponse<>(HttpStatus.OK.value(), "User fetched successfully.", null);
+        return new ApiResponse<>(HttpStatus.NO_CONTENT.value(), "Proposal successfully deleted.", null);
     }
 
 
@@ -123,6 +130,7 @@ public class LightningTalksController {
      */
     @GetMapping(value = "/submission")
     @Transactional(readOnly = true)
+    @ResponseStatus(HttpStatus.OK)
     public ApiResponse<List<Submission>> findAllSubmission() {
         log.debug("REST-GET request to retrieve TopicProposal ");
         return new ApiResponse<List<Submission>>(HttpStatus.OK.value(), "success", lightningTalksService.findAllSubmission());
