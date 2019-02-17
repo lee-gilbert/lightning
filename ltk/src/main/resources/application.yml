@@ -1,3 +1,6 @@
+analytics:
+    logstashURL: http://log:31311
+    enabled: false
 server:
     port: 8080
     error:
@@ -8,6 +11,10 @@ logging:
         org:
             hibernate:
                 SQL: debug
+                type:
+                    descriptor:
+                        sql:
+                            BasicBinder: TRACE
 management:
     address: 127.0.0.1
     context-path: /manage
@@ -41,6 +48,10 @@ spring:
     jmx:
         default-domain: jpa.sample
     jpa:
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.PostgreSQL82Dialect
+                format_sql: true
         show-sql: true
         hibernate:
             ddl-auto: none
