@@ -12,6 +12,7 @@ export class BackendApiService {
   public baseUrl = 'http://localhost:8080/api';
   public proposalURL = this.baseUrl + '/proposal/';
   public submissionlURL = this.baseUrl + '/submission/';
+  public sessionlURL = this.baseUrl + '/session/';
 
   constructor(private http: HttpClient) { }
 
@@ -57,5 +58,9 @@ export class BackendApiService {
     return this.http.get<ApiResponse>(this.submissionlURL);
   }
 
+  /** Sessions **/
+  getSessionDates(): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(this.sessionlURL + 'dates');
+  }
 
 }

@@ -16,6 +16,7 @@ export class ProposalListComponent implements OnInit {
 
   displayedColumns: string[] = ['topic', 'description', 'email', 'editBtn', 'deleteBtn', 'submitBtn'];
   dataSource: MatTableDataSource<Proposal> = new MatTableDataSource(new Array(0));
+  noData: boolean;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -34,6 +35,7 @@ export class ProposalListComponent implements OnInit {
       .subscribe(data => {
         this.dataSource = new MatTableDataSource(data.result);
         this.dataSource.paginator = this.paginator;
+        this.noData = data.result.length === 0;
       });
   }
 

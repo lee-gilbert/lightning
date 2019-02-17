@@ -15,7 +15,7 @@ export class ProposalEditComponent implements OnInit {
 
   editForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, 
+  constructor(private formBuilder: FormBuilder, private router: Router,
     private alertService: AlertService, private apiService: BackendApiService) { }
 
   validateAllFormFields(formGroup: FormGroup) {

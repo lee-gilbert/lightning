@@ -4,8 +4,18 @@
       Submissions & Upcoming Sessions
     </mat-card-title>
     <mat-card-content>
-      <div>
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <div [formGroup]="selectedTalkDateGrp">
+            <mat-form-field >
+              <mat-select [(value)]="selectedTalkDate"  placeholder="Talk Date" >
+                <mat-option *ngFor="let x of talkDates" (click)="this.onDateChanged(x);" [(value)]="x.epoch">
+                    {{x.dt | date:'EEEE MMM d, y'}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+        <div class="mat-elevation-z8" >  
+        <table mat-table [dataSource]="dataSource" >
           <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef> No. </th>
             <td mat-cell *matCellDef="let tcol"> {{tcol.id}} </td>
@@ -39,8 +49,9 @@
           <ng-container matColumnDef="approved">
             <th mat-header-cell *matHeaderCellDef> Approved </th>
             <td mat-cell *matCellDef="let tcol">
-              <mat-icon class="lightning-icon" *ngIf="tcol.approved" svgIcon="lightning"> </mat-icon>
-            </td>
+                <mat-icon class="lightning-icon" *ngIf="tcol.approved" svgIcon="lightning"> </mat-icon>
+                <mat-icon class="material-icons"  *ngIf="tcol.approved == false" svgIcon="poll"> </mat-icon>
+              </td>
           </ng-container>
 
           <ng-container matColumnDef="approveBtn">
@@ -53,10 +64,8 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
       </div>
-      <br>
-      <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
-
     </mat-card-content>
   </mat-card>
 </div>
