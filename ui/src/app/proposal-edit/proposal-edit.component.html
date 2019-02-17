@@ -12,7 +12,7 @@
           <tr>    
               <td>    
                   <mat-form-field class="form-group">    
-                      <input matInput formControlName="topic" id="topic" placeholder="Topic:"  type="text" >  
+                      <input matInput formControlName="topic" id="topic" placeholder="Topic:"  type="text" required minlength="3" >  
                       <mat-hint>Not more then 80 characters long.</mat-hint>
                       <mat-error *ngIf="editForm.controls['topic'].errors?.required">Topic is required</mat-error> 
                       <mat-error *ngIf="editForm.controls['topic'].errors?.maxlength">You have more than 80 characters</mat-error>
@@ -23,7 +23,7 @@
           <tr>    
               <td>    
                   <mat-form-field class="form-group" style="width: 320px;">    
-                      <textarea matInput formControlName="description" id="description" placeholder="Description:" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5"></textarea>    
+                      <textarea matInput formControlName="description" id="description" placeholder="Description:" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5"> required minlength="3" </textarea>    
                       <mat-hint>Not more then 120 characters long.</mat-hint>
                       <mat-error *ngIf="editForm.controls['description'].errors?.required">Description is required</mat-error>
                       <mat-error *ngIf="editForm.controls['description'].errors?.maxlength">You have more than 120 characters</mat-error>
@@ -34,7 +34,7 @@
           <tr>    
               <td>    
                   <mat-form-field class="form-group">    
-                      <input matInput formControlName="email" placeholder="Email Address:" type="text" id="email"> 
+                      <input matInput formControlName="email" placeholder="Email Address:" type="text" id="email"required minlength="6" > 
                       <mat-error *ngIf="editForm.controls['email'].errors?.email">You should have a valid email address</mat-error> 
                     </mat-form-field>    
               </td>    
