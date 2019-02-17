@@ -1,5 +1,8 @@
 package com.leeGilbert.ltk.rest;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.leeGilbert.ltk.domain.Submission;
 import com.leeGilbert.ltk.domain.TopicProposal;
 import com.leeGilbert.ltk.service.LightningTalksService;
@@ -8,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +22,12 @@ import javax.validation.ConstraintViolationException;
 import javax.ws.rs.core.Context;
 
 import java.net.URISyntaxException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  *  REST endpoints for LightningTalks.
@@ -132,9 +140,28 @@ public class LightningTalksController {
     @Transactional(readOnly = true)
     @ResponseStatus(HttpStatus.OK)
     public ApiResponse<List<Submission>> findAllSubmission() {
-        log.debug("REST-GET request to retrieve TopicProposal ");
-        return new ApiResponse<List<Submission>>(HttpStatus.OK.value(), "success", lightningTalksService.findAllSubmission());
+        log.debug("REST-GET request to retrieve Submissions ");
+        return new ApiResponse<>(HttpStatus.OK.value(), "success", lightningTalksService.findAllSubmission());
     }
+
+    /**
+     * GET  /submission/date/{dt} -> Submissions list for given talk date.
+     */
+    @GetMapping(value = "/submission/date/{dt}")
+    @Transactional(readOnly = true)
+    @ResponseStatus(HttpStatus.OK)
+    public ApiResponse<List<Submission>> findAllSubmissionForDate(@PathVariable(name="dt", required = false) Long epoch) {
+        LocalDate dt = null;
+        if (epoch == null) {
+            dt = TalkDateStreamUtil.nextTalkDate();
+        } else {
+            dt = LocalDate.ofEpochDay(epoch);
+        }
+        log.debug("REST-GET request to retrieve Submissions by date " + dt);
+        return new ApiResponse<>(HttpStatus.OK.value(), "success", lightningTalksService.findAllSessionsWithTalkDate(dt));
+    }
+
+
 
     /**
      * POST  /submission -> Add/Create a new Submission.
@@ -191,4 +218,21 @@ public class LightningTalksController {
                 })
                 .orElse(new ApiResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Submission approval failed", null));
     }
+
+    //** Session *************************************************************************************************
+
+
+    /**
+     * GET  /session/dates&from=XXX -> Retrieves a list of upcoming session Dates.
+     */
+    @GetMapping(value = "/session/dates")
+    @Transactional(readOnly = true)
+    public ApiResponse<List<LocalDateDTO>> findSessionDates(@RequestParam(name="count", defaultValue = "3") Integer count) {
+        log.debug("REST-GET request to retrieve Session Dates count: {}", count);
+        List<LocalDateDTO> dates = TalkDateStreamUtil.newTalkDateStream(LocalDate.now()).limit(count).
+                map(dt-> new LocalDateDTO(dt.toEpochDay(), dt)).collect(Collectors.toList());
+        return new ApiResponse<>(HttpStatus.OK.value(), "Session Dates fetched successfully", dates);
+    }
+
+
 }

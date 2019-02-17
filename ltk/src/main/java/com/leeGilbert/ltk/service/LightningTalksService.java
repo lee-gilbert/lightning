@@ -37,6 +37,7 @@ public class LightningTalksService {
         return this.topicProposalRepository.findAll();
     }
 
+
     public Optional<TopicProposal> findTopicProposalById(Long id) {
         Assert.notNull(id, "TopicProposal id must not be null");
         return this.topicProposalRepository.findById(id);
@@ -59,6 +60,12 @@ public class LightningTalksService {
 
 
     //** Submission *************************************************************************************************
+
+
+    public List<Submission> findAllSessionsWithTalkDate(LocalDate onDate) {
+        Assert.notNull(onDate, "Submission date filter must not be null");
+        return this.submissionRepository.findAllWithTargetLightningTalkDateOn(onDate);
+    }
 
     public List<Submission> findAllSubmission() {
         return this.submissionRepository.findAll();

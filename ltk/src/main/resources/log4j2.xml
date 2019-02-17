@@ -14,13 +14,21 @@
             </Policies>
             <DefaultRolloverStrategy max="10"/>
         </RollingFile>
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder
+                by default -->
+            <encoder>
+                <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+                </pattern>
+            </encoder>
+        </appender>
     </Appenders>
     <Loggers>
         <Root level="debug" additivity="false">
             <AppenderRef ref="SpringBootRollingFile"/>
+            <appender-ref ref="STDOUT" />
         </Root>
-        <Logger name="hello" level="DEBUG" additivity="false">
-            <appender-ref ref="SpringBootRollingFile" level="DEBUG"/>
-        </Logger>
+
     </Loggers>
+
 </Configuration>
