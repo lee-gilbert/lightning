@@ -1,5 +1,7 @@
 package com.leeGilbert.ltk;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,6 +18,15 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Collections;
 
+/**
+ * Posts data to logstash URL endpoint collector.
+ * Enabled via config:
+ * <pre>
+ * analytics.enabled=true.
+ * analytics.logstashURL=&lt;url:port&gt;.
+ * </pre>
+ *
+ */
 @Component
 @Data
 @Validated
@@ -51,11 +62,20 @@ public class Analytics {
         if (enabled) {
              client.post().body(BodyInserters.fromObject(json))
             .exchange()
-            .subscribe(
+            .subscribe( // fixme {}
                     value -> log.debug("call returned {}", value),
-                    error -> log.error("call returned {}",  error.getMessage()),
+                    error -> log.error("call errored {}",  error.getMessage()),
                     () -> log.warn("completed without a value")
             );
+        }
+    }
+
+    public void log(Object o) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            logJson(mapper.writeValueAsString(o));
+        } catch (Exception e) {
+           log.error(e.getMessage(), e);
         }
     }
 

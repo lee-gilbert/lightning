@@ -11,7 +11,7 @@ import java.io.Serializable;
 /**
  * A proposal for a talk (before it is Submitted for review).
  * When submitted, a proposal is stored/tracked as a Submission.
- * Lombox issue https://github.com/rzwitserloot/lombok/issues/1703 prevents use here
+ * Lomboc issue https://github.com/rzwitserloot/lombok/issues/1703 prevents use here
  */
 @Entity(name = "topicProposal")
 @ToString

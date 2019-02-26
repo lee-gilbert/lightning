@@ -1,5 +1,6 @@
 package com.leeGilbert.ltk.service;
 
+import com.leeGilbert.ltk.Analytics;
 import com.leeGilbert.ltk.domain.ScheduledSession;
 import com.leeGilbert.ltk.domain.Submission;
 import com.leeGilbert.ltk.domain.TopicProposal;
@@ -13,6 +14,7 @@ import org.springframework.util.Assert;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.*;
@@ -21,15 +23,17 @@ import java.util.*;
 @Transactional
 public class LightningTalksService {
 
-    @Autowired
+    @Autowired @NotNull
     private TopicProposalRepository topicProposalRepository;
 
-    @Autowired
+    @Autowired @NotNull
     private SubmissionRepository submissionRepository;
 
-    @Autowired
+    @Autowired @NotNull
     private ScheduledSessionRepository scheduledSessionRepository;
 
+    @Autowired @NotNull
+    private Analytics analytics;
 
     //** TopicProposal *************************************************************************************************
 
@@ -50,7 +54,9 @@ public class LightningTalksService {
 
     public TopicProposal updateTopicProposal(TopicProposal tp) {
         Assert.notNull(tp, "TopicProposal must not be null");
-        return this.topicProposalRepository.saveAndFlush(tp);
+        final TopicProposal topicProposal = this.topicProposalRepository.saveAndFlush(tp);
+        analytics.log(topicProposal);
+        return topicProposal;
     }
 
     public void deleteTopicProposalById(Long id) {
@@ -97,7 +103,9 @@ public class LightningTalksService {
             topicProposalRepository.save(tp);
             });
         }
-       return this.submissionRepository.saveAndFlush(submission);
+        final Submission submission1 = this.submissionRepository.saveAndFlush(submission);
+        analytics.log(submission1);
+        return submission1;
     }
 
 

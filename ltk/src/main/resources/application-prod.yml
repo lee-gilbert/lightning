@@ -11,9 +11,9 @@ spring:
     liquibase:
       change-log: classpath:/db/changelog/db.changelog-master.xml
       enabled: true
-      password: postgres
       url: jdbc:postgresql://localhost:5432/testData
       user: postgres
+      password: postgres
     jpa:
       show-sql: true
       hibernate:

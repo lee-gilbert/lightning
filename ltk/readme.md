@@ -30,9 +30,14 @@ Requires Java v8 (does not work with later versions), mvn v3.5+, for Build.
  5. Spring Security 5
  6. Java 1.8
 
-## Out of Scope
-* User accounts & authentication
-* Support for prevention of update race condition on Entities.
+## TODOs
+* User accounts & authentication: OAUTH2, JWT
+* Server disconnection user notification and reconnect
+* Prevention of update race condition on Entities.
 * Support for Audit fields & logs.
-* Support for Edit Undo via history.
+* Use of GraphQL 
+
+## Out of Scope
+* Edit Undo via history.
 * Multilingual messages
+* Use of MQTT 
