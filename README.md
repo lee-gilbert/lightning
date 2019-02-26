@@ -46,14 +46,30 @@
 The App runs inside <a href="https://www.docker.com/"><b>Docker</b></a> containers, linked together with <a href="https://docs.docker.com/compose/overview/"><b>Docker Compose</b></a>. As Analytics framework, the <a href="https://www.elastic.co/products"><b>Elastic Stack</b></a> has been used by sending data of interest to Elastic Search, through Logstash, and querying and analyzing it with Kibana.
 </p>
 
-## Setup
+## Setup With Docker
 
 ### Linux:
 1. Install [docker](https://docs.docker.com/install/), [docker-compose](https://docs.docker.com/compose/install/) and [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 
 2. Clone this repo:<pre>git clone https://github.com/lee-gilbert/lightning.git </pre> <pre>cd lightning/</pre>
 
-3. Run:<pre>docker-compose -p lightning up -d </pre>
+3. For Java Backend, Run:<pre>docker-compose -p lightning up -d </pre>
+
+# Dev-Mode: Running the Angular UI App
+
+1a)  App can be run from command line (Note: node v11 must be installed first.):
+
+cmd\> `cd ui` 
+<br> Run cmd\> `npm install` to update packages.
+<br> Run cmd\> `ng serve` to start a dev server. Navigate to `http://localhost:4200/`
+
+The UI requires the backend also to be started.
+Optionally: Follow instructons in `.\ltk\readme.md` to run in dev without docker locally.
+
+## What this App Demo Does
+Supports creation of Talk TopicProposals via a Angular Material UI. These can be saved/edited then submitted for Approval.
+Up to 3 talks can be approved for the next scheduled session which by default occurs on the 1st tuesday of even months.
+Approved Talk Submissions are then associated with a ScheduledSession object.
 
 ## Design considerations for use
 
@@ -75,25 +91,12 @@ The original Proposal object also remains available for view/edit, until it is d
   * The backend currently inserts some data for testing.
 
 
-## Dev-Mode: Running the Angular UI App
-
-1a)  App can be run from command line (Note: node v11 must be installed first.):
-
-cmd\> `cd ui` 
-<br> Run cmd\> `npm install` to update packages.
-<br> Run cmd\> `ng serve` to start a dev server. Navigate to `http://localhost:4200/`
-
-The UI requires the backend also to be started.
-Follow instructons in `.\ltk\readme.md` 
-
-## Known Issues
-- If an attempt is made to save a Proposal with a topic that already exists on the backend (i.e. is duplicated), no validation error is displayed, and this also prevents the proposal being saved until the topic name is changed.
-
 ## Todos
 
-- Add Security: OAuth2 SSO, JWT & user account registry
+- Add Security: OAuth2 SSO, JWT & user account registry, and a 'talk approver' group.
+- Add ui view table support for filtering by session date (currently the date selector has no filter logic behind it.)
 - Add ui view table column sort & topic search
-- Make use of Springs Result Paging API.
+- Make use of Springs Result Paging API (for large results).
 - Migrate to Spring Reactive Flux/Mono Based Restful services.
 - Expand UI test suites to include services mock.
 - DB Race condition detection.
