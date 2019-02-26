@@ -1,4 +1,4 @@
-package com.leeGilbert.ltk.rest;
+package com.leegilbert.ltk.rest;
 
 import lombok.*;
 

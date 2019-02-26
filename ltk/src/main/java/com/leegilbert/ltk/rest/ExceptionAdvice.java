@@ -1,4 +1,4 @@
-package com.leeGilbert.ltk.rest;
+package com.leegilbert.ltk.rest;
 
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 // spring v4 way, see https://stackoverflow.com/questions/19498378/setting-precedence-of-multiple-controlleradvice-exceptionhandlers/19500823#19500823
 @Order(Ordered.HIGHEST_PRECEDENCE)
-@RestControllerAdvice(value="com.leeGilbert.ltk.rest")
+@RestControllerAdvice(value="com.leegilbert.ltk.rest")
 @ResponseBody
 public class ExceptionAdvice {
 

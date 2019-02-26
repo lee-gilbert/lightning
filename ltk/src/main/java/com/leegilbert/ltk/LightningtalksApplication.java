@@ -1,9 +1,9 @@
-package com.leeGilbert.ltk;
+package com.leegilbert.ltk;
 
-import com.leeGilbert.ltk.domain.Submission;
-import com.leeGilbert.ltk.domain.TopicProposal;
-import com.leeGilbert.ltk.service.LightningTalksService;
-import com.leeGilbert.ltk.util.TalkDateStreamUtil;
+import com.leegilbert.ltk.domain.Submission;
+import com.leegilbert.ltk.domain.TopicProposal;
+import com.leegilbert.ltk.service.LightningTalksService;
+import com.leegilbert.ltk.util.TalkDateStreamUtil;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

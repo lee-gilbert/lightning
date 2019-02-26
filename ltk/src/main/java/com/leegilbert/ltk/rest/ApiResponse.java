@@ -1,4 +1,4 @@
-package com.leeGilbert.ltk.rest;
+package com.leegilbert.ltk.rest;
 
 public class ApiResponse<T> {
 

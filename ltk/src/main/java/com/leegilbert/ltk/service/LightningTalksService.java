@@ -1,12 +1,12 @@
-package com.leeGilbert.ltk.service;
+package com.leegilbert.ltk.service;
 
-import com.leeGilbert.ltk.Analytics;
-import com.leeGilbert.ltk.domain.ScheduledSession;
-import com.leeGilbert.ltk.domain.Submission;
-import com.leeGilbert.ltk.domain.TopicProposal;
-import com.leeGilbert.ltk.repository.ScheduledSessionRepository;
-import com.leeGilbert.ltk.repository.SubmissionRepository;
-import com.leeGilbert.ltk.repository.TopicProposalRepository;
+import com.leegilbert.ltk.Analytics;
+import com.leegilbert.ltk.domain.ScheduledSession;
+import com.leegilbert.ltk.domain.Submission;
+import com.leegilbert.ltk.domain.TopicProposal;
+import com.leegilbert.ltk.repository.ScheduledSessionRepository;
+import com.leegilbert.ltk.repository.SubmissionRepository;
+import com.leegilbert.ltk.repository.TopicProposalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

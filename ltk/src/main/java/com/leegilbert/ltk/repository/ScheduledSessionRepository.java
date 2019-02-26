@@ -1,6 +1,6 @@
-package com.leeGilbert.ltk.repository;
+package com.leegilbert.ltk.repository;
 
-import com.leeGilbert.ltk.domain.ScheduledSession;
+import com.leegilbert.ltk.domain.ScheduledSession;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

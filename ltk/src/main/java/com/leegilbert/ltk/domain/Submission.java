@@ -1,4 +1,4 @@
-package com.leeGilbert.ltk.domain;
+package com.leegilbert.ltk.domain;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-package com.leeGilbert.ltk.util;
+package com.leegilbert.ltk.util;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;

@@ -1,12 +1,12 @@
-package com.leeGilbert.ltk.rest;
+package com.leegilbert.ltk.rest;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
-import com.leeGilbert.ltk.domain.Submission;
-import com.leeGilbert.ltk.domain.TopicProposal;
-import com.leeGilbert.ltk.service.LightningTalksService;
-import com.leeGilbert.ltk.util.TalkDateStreamUtil;
+import com.leegilbert.ltk.domain.Submission;
+import com.leegilbert.ltk.domain.TopicProposal;
+import com.leegilbert.ltk.service.LightningTalksService;
+import com.leegilbert.ltk.util.TalkDateStreamUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

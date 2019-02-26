@@ -8,7 +8,7 @@
 		<version>2.0.8.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.leeGilbert</groupId>
+	<groupId>com.leegilbert</groupId>
 	<artifactId>ltk</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>lightningtalks</name>

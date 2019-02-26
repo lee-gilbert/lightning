@@ -1,4 +1,4 @@
-package com.leeGilbert.ltk;
+package com.leegilbert.ltk;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;

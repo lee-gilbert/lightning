@@ -1,4 +1,4 @@
-//package com.leeGilbert.ltk.rest;
+//package com.leegilbert.ltk.rest;
 //
 //import org.springframework.context.annotation.Configuration;
 //import org.springframework.web.servlet.config.annotation.CorsRegistry;

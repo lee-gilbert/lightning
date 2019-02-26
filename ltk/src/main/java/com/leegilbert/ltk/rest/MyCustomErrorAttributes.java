@@ -1,4 +1,4 @@
-package com.leeGilbert.ltk.rest;
+package com.leegilbert.ltk.rest;
 
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
 import org.springframework.stereotype.Component;

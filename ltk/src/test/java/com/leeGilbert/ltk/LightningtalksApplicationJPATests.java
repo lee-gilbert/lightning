@@ -1,11 +1,11 @@
-package com.leeGilbert.ltk;
+package com.leegilbert.ltk;
 
-import com.leeGilbert.ltk.domain.ScheduledSession;
-import com.leeGilbert.ltk.domain.Submission;
-import com.leeGilbert.ltk.domain.TopicProposal;
-import com.leeGilbert.ltk.repository.ScheduledSessionRepository;
-import com.leeGilbert.ltk.repository.SubmissionRepository;
-import com.leeGilbert.ltk.repository.TopicProposalRepository;
+import com.leegilbert.ltk.domain.ScheduledSession;
+import com.leegilbert.ltk.domain.Submission;
+import com.leegilbert.ltk.domain.TopicProposal;
+import com.leegilbert.ltk.repository.ScheduledSessionRepository;
+import com.leegilbert.ltk.repository.SubmissionRepository;
+import com.leegilbert.ltk.repository.TopicProposalRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
