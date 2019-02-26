@@ -7,7 +7,7 @@
         <div [formGroup]="selectedTalkDateGrp">
             <mat-form-field >
               <mat-select [(value)]="selectedTalkDate"  placeholder="Talk Date" >
-                <mat-option *ngFor="let x of talkDates" (click)="this.onDateChanged(x);" [(value)]="x.epoch">
+                <mat-option matInput *ngFor="let x of talkDates" (click)="this.onDateChanged(x);" [(value)]="x.epoch">
                     {{x.dt | date:'EEEE MMM d, y'}}
                 </mat-option>
               </mat-select>

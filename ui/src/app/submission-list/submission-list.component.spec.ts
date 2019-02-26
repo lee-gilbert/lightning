@@ -3,7 +3,7 @@ import {TestsModule} from '../modules/tests.module';
 import { SubmissionListComponent } from './submission-list.component';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {ActivatedRoute, convertToParamMap} from '@angular/router';
-import { MatTableModule } from '@angular/material';
+import { MatTableModule, MatInputModule, MatSelectModule } from '@angular/material';
 import {APP_BASE_HREF} from '@angular/common';
 
 describe('SubmissionListComponent', () => {
@@ -13,7 +13,7 @@ describe('SubmissionListComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ SubmissionListComponent ],
-      imports: [TestsModule, MatTableModule],
+      imports: [TestsModule, MatTableModule,  MatInputModule, MatSelectModule],
       providers: [
         {provide: ActivatedRoute,
         useValue: {
