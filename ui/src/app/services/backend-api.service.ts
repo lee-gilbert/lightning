@@ -10,9 +10,9 @@ import {Observable} from 'rxjs/index';
 })
 export class BackendApiService {
   public baseUrl = 'http://localhost:8080/api';
-  public proposalURL = this.baseUrl + '/proposal/';
-  public submissionlURL = this.baseUrl + '/submission/';
-  public sessionlURL = this.baseUrl + '/session/';
+  public proposalURL = this.baseUrl + '/proposals/';
+  public submissionlURL = this.baseUrl + '/submissions/';
+  public sessionlURL = this.baseUrl + '/sessions/';
 
   constructor(private http: HttpClient) { }
 

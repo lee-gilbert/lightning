@@ -25,6 +25,9 @@ public class PropertyTest {
     public void testAnalyticsConfig() {
         assertThat(analytics).isNotNull();
         assertThat(analytics.getEnabled()).isNotNull();
+        assertThat(analytics.getEnabled())
+                .as("analytics.getEnabled() should match")
+                .isEqualTo(Boolean.FALSE);
     }
 
 }

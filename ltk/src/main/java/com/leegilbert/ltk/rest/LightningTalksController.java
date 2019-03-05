@@ -51,9 +51,9 @@ public class LightningTalksController {
 
     //** TopicProposal *************************************************************************************************
     /**
-     * GET  /proposal -> Retrieves TopicProposal list.
+     * GET  /proposals -> Retrieves TopicProposal list.
      */
-    @GetMapping(value = "/proposal")
+    @GetMapping(value = "/proposals")
     @Transactional(readOnly = true)
     public ApiResponse<List<TopicProposal>> findAllTopicProposal() {
         log.debug("REST-GET request to retrieve TopicProposal ");
@@ -61,9 +61,9 @@ public class LightningTalksController {
     }
 
     /**
-     * GET  /proposal/{id} -> Retrieves a TopicProposal.
+     * GET  /proposals/{id} -> Retrieves a TopicProposal.
      */
-    @GetMapping(value = "/proposal/{id}")
+    @GetMapping(value = "/proposals/{id}")
     @Transactional(readOnly = true)
     public ApiResponse<TopicProposal> findTopicProposalById(@PathVariable Long id) {
         log.debug("REST-GET request to retrieve TopicProposal id: {}", id);
@@ -73,9 +73,9 @@ public class LightningTalksController {
     }
 
     /**
-     * POST  /proposal -> Add/Create a new TopicProposal.
+     * POST  /proposals -> Add/Create a new TopicProposal.
      */
-    @PostMapping(value = "/proposal")
+    @PostMapping(value = "/proposals")
     public ApiResponse<TopicProposal> create(@RequestBody TopicProposal tp, @Context HttpServletResponse resp) throws URISyntaxException {
         log.debug("REST-POST request to save new TopicProposal : {}", tp);
         if (tp.getId() != null) {//TODO refactor into util
@@ -106,9 +106,9 @@ public class LightningTalksController {
     }
 
     /**
-     * PUT  /proposal/{id} -> Update an existing TopicProposal.
+     * PUT  /proposals/{id} -> Update an existing TopicProposal.
      */
-    @PutMapping(value = "/proposal/{id}")
+    @PutMapping(value = "/proposals/{id}")
      public ApiResponse<TopicProposal> updateTopicProposal(@PathVariable("id") long id, @RequestBody TopicProposal proposalIn)  {
         log.debug("REST-PUT request to update TopicProposal : {}", proposalIn);
         return lightningTalksService.findTopicProposalById(id)
@@ -121,9 +121,9 @@ public class LightningTalksController {
     }
 
     /**
-     * DELETE  /proposal/:id -> delete TopicProposal by "id".
+     * DELETE  /proposals/:id -> delete TopicProposal by "id".
      */
-    @DeleteMapping(value = "/proposal/{id}")
+    @DeleteMapping(value = "/proposals/{id}")
     public ApiResponse<Void>  deleteTopicProposal(@PathVariable Long id) {
         log.debug("REST request to delete Things : {}", id);
         lightningTalksService.deleteTopicProposalById(id);
@@ -134,9 +134,9 @@ public class LightningTalksController {
     //** Submission *************************************************************************************************
 
     /**
-     * GET  /submission -> Submissions list.
+     * GET  /submissions -> Submissions list.
      */
-    @GetMapping(value = "/submission")
+    @GetMapping(value = "/submissions")
     @Transactional(readOnly = true)
     @ResponseStatus(HttpStatus.OK)
     public ApiResponse<List<Submission>> findAllSubmission() {
@@ -145,9 +145,9 @@ public class LightningTalksController {
     }
 
     /**
-     * GET  /submission/date/{dt} -> Submissions list for given talk date.
+     * GET  /submissions/date/{dt} -> Submissions list for given talk date.
      */
-    @GetMapping(value = "/submission/date/{dt}")
+    @GetMapping(value = "/submissions/date/{dt}")
     @Transactional(readOnly = true)
     @ResponseStatus(HttpStatus.OK)
     public ApiResponse<List<Submission>> findAllSubmissionForDate(@PathVariable(name="dt", required = false) Long epoch) {
@@ -164,10 +164,10 @@ public class LightningTalksController {
 
 
     /**
-     * POST  /submission -> Add/Create a new Submission.
+     * POST  /submissions -> Add/Create a new Submission.
      * If a submission.id is supplied then this is used to update submitted status of a Proposal with that id.
      */
-    @PostMapping(value = "/submission")
+    @PostMapping(value = "/submissions")
     public ApiResponse<Submission> createSubmission(@RequestBody Submission submission, @Context HttpServletResponse resp) {
         log.debug("REST-POST request to save new Submission : {}", submission);
         // default some values
@@ -203,10 +203,10 @@ public class LightningTalksController {
     }
 
     /**
-     * PUT  /submission/{id}/approve -> Approves an existing Submission and creates/updates a ScheduledSession for the unique TalkDate.
+     * PUT  /submissions/{id}/approve -> Approves an existing Submission and creates/updates a ScheduledSession for the unique TalkDate.
      * Input allows only updates to the 'Submission.approved' field.
      */
-    @PutMapping(value = "/submission/{id}/approve")
+    @PutMapping(value = "/submissions/{id}/approve")
     public ApiResponse<Submission> approveSubmission(@PathVariable Long id, @RequestBody Submission submissionIn, @Context HttpServletResponse resp) {
         log.debug("REST-PUT request to approve existing Submission : {}", submissionIn);
         return lightningTalksService.findSubmissionById(id)
@@ -223,9 +223,9 @@ public class LightningTalksController {
 
 
     /**
-     * GET  /session/dates&from=XXX -> Retrieves a list of upcoming session Dates.
+     * GET  /sessions/dates&from=XXX -> Retrieves a list of upcoming session Dates.
      */
-    @GetMapping(value = "/session/dates")
+    @GetMapping(value = "/sessions/dates")
     @Transactional(readOnly = true)
     public ApiResponse<List<LocalDateDTO>> findSessionDates(@RequestParam(name="count", defaultValue = "3") Integer count) {
         log.debug("REST-GET request to retrieve Session Dates count: {}", count);

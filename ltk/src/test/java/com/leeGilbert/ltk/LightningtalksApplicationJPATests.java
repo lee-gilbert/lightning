@@ -21,9 +21,6 @@ import java.util.HashSet;
 import java.util.List;
 
 import java.util.Set;
-import java.util.function.Function;
-
-import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.joining;
 import static org.hamcrest.core.Is.is;

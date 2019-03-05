@@ -23,15 +23,14 @@ public class TalkDateStreamUtilTest {
     @Test
     public void StreamContainsExpectedTuesdays() {
         TalkDateStreamUtil.newTalkDateStream(start)
-                .limit(MAX_SIZE)
-                .forEach(d -> {
-                    Assert.assertThat(d.isBefore(start), is(false)) ;
-                    Assert.assertThat("Even Month", d.getMonthValue() % 2,  is( 0));
-                    Assert.assertThat("A Tuesday", d.getDayOfWeek(), is(DayOfWeek.TUESDAY)) ;
-                    Assert.assertThat("1st Tuesday in Month", d, is(d.with(firstInMonth(DayOfWeek.TUESDAY)).atStartOfDay().toLocalDate()));
-                });
-
-
+            .limit(MAX_SIZE)
+            .forEach(d -> {
+                Assert.assertThat(d.isBefore(start), is(false)) ;
+                Assert.assertThat("Even Month", d.getMonthValue() % 2,  is( 0));
+                Assert.assertThat("A Tuesday", d.getDayOfWeek(), is(DayOfWeek.TUESDAY)) ;
+                Assert.assertThat("1st Tuesday in Month", d,
+                        is(d.with(firstInMonth(DayOfWeek.TUESDAY)).atStartOfDay().toLocalDate()));
+            });
     }
 
     @Test
