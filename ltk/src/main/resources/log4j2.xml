@@ -4,11 +4,15 @@
         <Property name="log-path">../logs</Property>
     </Properties>
     <Appenders>
-        <RollingFile name="SpringBootRollingFile" fileName="${log-path}/gs-spring-boot-app.log"
-                     filePattern="${log-path}/gs-spring-boot-app.log-%i.gz" >
-            <PatternLayout>
-                <pattern>%d{yyyy-MM-dd HH:mm:ss,SS} %-5p [%t] %-17c{2} (%13F:%L) %3x  -%X{uniqueIdentifier} %m%n</pattern>
-            </PatternLayout>
+        <RollingFile name="SpringBootRollingFile" fileName="${log-path}/lts-app.log" filePattern="${log-path}/lts-app.log-%i.gz" >
+            <LogstashLayout dateTimeFormatPattern="yyyy-MM-dd'T'HH:mm:ss.SSSZZZ"
+                            eventTemplateUri="classpath:LogstashJsonEventLayoutV1.json"
+                            prettyPrintEnabled="false"
+                            eventEol="true"
+                            stackTraceEnabled="true"/>
+            <!--<PatternLayout>-->
+                <!--<pattern>%d{yyyy-MM-dd HH:mm:ss,SS} %-5p [%t] %-17c{2} (%13F:%L) %3x  -%X{uniqueIdentifier} %m%n</pattern>-->
+            <!--</PatternLayout>-->
             <Policies>
                 <SizeBasedTriggeringPolicy size="10 MB" />
             </Policies>
