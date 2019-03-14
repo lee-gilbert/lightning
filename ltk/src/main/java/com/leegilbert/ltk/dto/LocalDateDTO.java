@@ -1,4 +1,4 @@
-package com.leegilbert.ltk.rest;
+package com.leegilbert.ltk.dto;
 
 import lombok.*;
 
