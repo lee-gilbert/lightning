@@ -3,8 +3,10 @@ import {TestsModule} from '../modules/tests.module';
 import { SubmissionListComponent } from './submission-list.component';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {ActivatedRoute, convertToParamMap} from '@angular/router';
-import { MatTableModule, MatInputModule, MatSelectModule } from '@angular/material';
 import {APP_BASE_HREF} from '@angular/common';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
 
 describe('SubmissionListComponent', () => {
   let component: SubmissionListComponent;

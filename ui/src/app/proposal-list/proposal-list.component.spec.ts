@@ -4,7 +4,7 @@ import { ProposalListComponent } from './proposal-list.component';
 import { CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { ActivatedRoute, convertToParamMap} from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MatTableModule } from '@angular/material';
+import { MatTableModule } from '@angular/material/table';
 import {APP_BASE_HREF} from '@angular/common';
 import { AlertService } from '../services/alert.service';
 
