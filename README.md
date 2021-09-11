@@ -3,11 +3,11 @@
 # LightningTalks Demo:
 
 ##### UI Stack
-[![Angular version](https://img.shields.io/badge/Angular-7.2.1-red.svg?style=flat-square)](https://angular.io/)
-[![AngularMaterial version](https://img.shields.io/badge/Material-7.2.1-red.svg?style=flat-square)](https://angular.io/)
-[![Typescript version](https://img.shields.io/badge/Typescript-3.2.2-blue.svg?style=flat-square)](https://angular.io/)
-[![Rxjs version](https://img.shields.io/badge/Rxjs-6.3.3-ff69b4.svg?style=flat-square)](https://angular.io/)
-[![jasmine](https://img.shields.io/badge/jasmine-2.8.8-orange.svg?style=flat-square)](https://angular.io/)
+[![Angular version](https://img.shields.io/badge/Angular-12.2.5-red.svg?style=flat-square)](https://angular.io/)
+[![AngularMaterial version](https://img.shields.io/badge/Material-12.2.5-red.svg?style=flat-square)](https://angular.io/)
+[![Typescript version](https://img.shields.io/badge/Typescript-4.3.5-blue.svg?style=flat-square)](https://angular.io/)
+[![Rxjs version](https://img.shields.io/badge/Rxjs-6.6.7-ff69b4.svg?style=flat-square)](https://angular.io/)
+[![jasmine](https://img.shields.io/badge/jasmine-3.6.0-orange.svg?style=flat-square)](https://angular.io/)
          
 ##### Backend
 [![Java](https://img.shields.io/badge/Java-v8-blue.svg?style=flat-square)](https://spring.io/)
