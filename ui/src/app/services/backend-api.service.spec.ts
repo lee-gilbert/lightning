@@ -26,9 +26,9 @@
 //           imports: [HttpClientModule, HttpClientTestingModule],
 //           providers: [{BackendApiService , useValue: mockApiService} ]
 //       });
-//       httpMock = TestBed.get(HttpTestingController);
-//       http = TestBed.get(HttpClient);
-//       apiService = TestBed.get(BackendApiService);
+//       httpMock = TestBed.inject(HttpTestingController);
+//       http = TestBed.inject(HttpClient);
+//       apiService = TestBed.inject(BackendApiService);
 //   });
 
 //   it('should be created', () => {

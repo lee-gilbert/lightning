@@ -14,12 +14,9 @@ import { ProposalAddComponent } from './proposal-add/proposal-add.component';
 import { SubmissionListComponent } from './submission-list/submission-list.component';
 import { MNavComponent } from './m-nav/m-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatPaginatorModule,
-   MatCardModule, MatFormFieldModule, MatInputModule,  MatRadioModule,
-   MatSelectModule, MatOptionModule, MatSlideToggleModule   } from '@angular/material';
+import { MaterialModule } from './modules/material.module';
 import { MatTableModule } from '@angular/material/table';
-import { BrowserXhr } from '@angular/http';
-import {CustExtBrowserXhr} from './cust-ext-browser-xhr';
+
 import { ErrorInterceptor } from './util/error.interceptor';
 
 @NgModule({
@@ -40,23 +37,9 @@ import { ErrorInterceptor } from './util/error.interceptor';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatRadioModule,
-    MatSelectModule,
-    MatOptionModule,
-    MatSlideToggleModule
+    MaterialModule
   ],
   providers: [ AlertService,
-    { provide: BrowserXhr, useClass: CustExtBrowserXhr},
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]

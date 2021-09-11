@@ -4,7 +4,7 @@ import {Proposal} from '../model/proposal.model';
 import {BackendApiService} from '../services/backend-api.service';
 import {MatTableDataSource} from '@angular/material/table';
 import {first} from 'rxjs/operators';
-import {MatPaginator} from '@angular/material';
+import {MatPaginator} from '@angular/material/paginator';
 import { AlertService } from '../services/alert.service';
 
 @Component({

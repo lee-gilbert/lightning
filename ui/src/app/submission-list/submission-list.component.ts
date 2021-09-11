@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {Submission} from '../model/submission.model';
 import {BackendApiService} from '../services/backend-api.service';
 import { MatTableDataSource} from '@angular/material/table';
-import { MatPaginator} from '@angular/material';
+import { MatPaginator} from '@angular/material/paginator';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import {first} from 'rxjs/operators';
 
@@ -64,5 +64,9 @@ export class SubmissionListComponent implements OnInit {
 
   onDateChanged(item: { 'epoch': number, 'dt': string}) {
   this.selectedTalkDate = item.epoch;
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

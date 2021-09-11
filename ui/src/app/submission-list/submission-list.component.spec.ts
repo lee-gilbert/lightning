@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {TestsModule} from '../modules/tests.module';
 import { SubmissionListComponent } from './submission-list.component';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
@@ -10,7 +10,7 @@ describe('SubmissionListComponent', () => {
   let component: SubmissionListComponent;
   let fixture: ComponentFixture<SubmissionListComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ SubmissionListComponent ],
       imports: [TestsModule, MatTableModule,  MatInputModule, MatSelectModule],
